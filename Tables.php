@@ -35,18 +35,29 @@
     )";
 
     $conn->query($sql);
-    $sql = "CREATE TABLE Interests(
+    $sql = "CREATE TABLE Interest(
         InterestID INT PRIMARY KEY,
         Name VARCHAR(40),
     )";
 
     $conn->query($sql);
 
+    $sql = "CREATE TABLE ContactInformation(
+        Type VARCHAR(40) NOT NULL,
+        Description VARCHAR(40) NOT NULL,
+        IndividualID INT,
+        AffiliationID INT,
+        FOREIGN KEY (IndividualID) REFERENCES Individual(IndividualID),
+        FOREIGN KEY (AffiliationID) REFERENCES Affiliation(AffiliationID 
+
+    )";
+
+    $conn->query($sql);
     // Relational Tables
     $sql = "CREATE TABLE Individual_AssocInterest(
         AssocIntID INT NOT NULL,
         IndividualID INT NOT NULL,
-        FOREIGN KEY (AssocIntID) REFERENCES AssocInterests(AssocIntID),
+        FOREIGN KEY (AssocIntID) REFERENCES AssocInterest(AssocIntID),
         FOREIGN KEY (IndividualID) REFERENCES Individual(IndividualID)
 
     )";
@@ -54,11 +65,48 @@
     $conn->query($sql);
     $sql = "CREATE TABLE Interest_AssocInterest(
         InterestID INT NOT NULL,
-        IndividualID INT NOT NULL,
-        FOREIGN KEY (InterestID) REFERENCES Interests(InterestID),
-        FOREIGN KEY (IndividualID) REFERENCES Individual(IndividualID)
+        AssocIntID INT NOT NULL,
+        FOREIGN KEY (InterestID) REFERENCES Interest(InterestID),
+        FOREIGN KEY (AssocIntID) REFERENCES AssocInterest(AssocIntID)
 
     )";
+
+    $conn->query($sql);
+    $sql = "CREATE TABLE Establishes(
+        IndividuaID INT NOT NULL,
+        ConnectionID INT NOT NULL,
+        FOREIGN KEY (IndividualID) REFERENCES Individual(IndividualID),
+        FOREIGN KEY (ConnectionID) REFERENCES Connection(ConnectionID)
+
+    )";
+    $conn->query($sql);
+    $sql = "CREATE TABLE PartOf(
+        AffiliationID INT NOT NULL,
+        ConnectionID INT NOT NULL,
+        FOREIGN KEY (AffiliationID) REFERENCES Affiliation(AffiliationID),
+        FOREIGN KEY (ConnectionID) REFERENCES Connection(ConnectionID)
+    )";
+    $conn->query($sql);
+    $sql = "CREATE TABLE Affiliation_ContactInfo(
+        AffiliationID INT NOT NULL,
+        Type VARCHAR(40) NOT NULL,
+        Description VARCHAR(40) NOT NULL,
+        FOREIGN KEY (AffiliationID) REFERENCES Affiliation(AffiliationID),
+        FOREIGN KEY (Type) REFERENCES ContactInformation(Type),
+        FOREIGN KEY (Description) REFERENCES ContactInformation(Description),
+    )";
+    
+    $conn->query($sql);
+    $sql = "CREATE TABLE Individual_ContactInfo(
+        IndividualID INT NOT NULL,
+        Type VARCHAR(40) NOT NULL,
+        Description VARCHAR(40) NOT NULL,
+        FOREIGN KEY (IndividualID) REFERENCES Individual(IndividualID),
+        FOREIGN KEY (Type) REFERENCES ContactInformation(Type),
+        FOREIGN KEY (Description) REFERENCES ContactInformation(Description),
+    )";
+    
+    $conn->query($sql);
 
 
 
