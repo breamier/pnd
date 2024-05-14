@@ -5,11 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Personal Networking Database</title>
         <link rel="icon" type="image/x-icon" href="">
+        <script src="script.js"></script>
     </head>
     <body>
 
         <h2>Add Contact Information</h2>
-        <form action="" method="post">
+        <form action="addContact.php" method="post">
             <label for="fname">First Name:</label><br>
             <input type="text" id="fname" name="fname"><br>
 
@@ -26,12 +27,30 @@
             <input type="radio" name="gender" value="others">Others<br>
 
             <label for="contact">Contact Information:</label><br>
-
+            <div id="contactInfo">
+                <div>
+                    <label for="infoType">Contact: </label>
+                    <select class="expand" name="infoType1">
+                        <option value="" disabled="">--Select Type--</option>
+                        <option value="phoneNum">Phone Number</option>
+                        <option value="email">Email</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="linkedIn">Linked In</option>
+                        <option value="website">Website</option>
+                        <option value="others">Others</option>
+                    </select>
+                    <input type="text" id="infoDesc1" name="infoDesc"><br>
+                </div>
+            </div>        
             <input type="submit">
+
+            <button onclick="add_field()">Add</button>
         </form>
+        
 
         <h2>Add Affiliation</h2>
-        <form action="" method="get">
+        <form action="addAffiliation.php" method="get">
             <label for="affName">Name of Affiliation:</label><br>
             <input type="text" id="affName" name="affName"><br>
 
