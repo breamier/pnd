@@ -44,9 +44,8 @@
                 </div>
             </div>        
             <input type="submit">
-
-            <button onclick="add_field()">Add</button>
         </form>
+        <button onclick="add_field()">Add</button>
         
 
         <h2>Add Affiliation</h2>
