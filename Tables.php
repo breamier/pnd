@@ -24,33 +24,34 @@
         AffiliationID INT,
         Name VARCHAR(40),
         Type VARCHAR(20),
-        Location VARCHAR(80)
-        PRIMARY KEY (AffiliatioID)
+        Location VARCHAR(80),
+        PRIMARY KEY (AffiliationID)
     )";
 
     $conn->query($sql);
-    $sql = "CREATE TABLE AssocInterest(
-        AssocIntID INT PRIMARY KEY,
 
+    $sql = "CREATE TABLE AssocInterest(
+        AssocIntID INT PRIMARY KEY 
     )";
 
     $conn->query($sql);
     $sql = "CREATE TABLE Interest(
         InterestID INT PRIMARY KEY,
-        Name VARCHAR(40),
+        Name VARCHAR(40)
     )";
 
     $conn->query($sql);
 
-    $sql = "CREATE TABLE ContactInformation(
-        Type VARCHAR(40) NOT NULL,
-        Description VARCHAR(40) NOT NULL,
-        IndividualID INT,
-        AffiliationID INT,
-        FOREIGN KEY (IndividualID) REFERENCES Individual(IndividualID),
-        FOREIGN KEY (AffiliationID) REFERENCES Affiliation(AffiliationID 
+        $sql = "CREATE TABLE ContactInformation(
+            Type VARCHAR(40) NOT NULL,
+            Description VARCHAR(40) NOT NULL,
+            IndividualID INT,
+            AffiliationID INT,
+            FOREIGN KEY (IndividualID) REFERENCES Individual(IndividualID),
+            FOREIGN KEY (AffiliationID) REFERENCES Affiliation(AffiliationID), 
+            PRIMARY KEY (Type,Description)
 
-    )";
+        )";
 
     $conn->query($sql);
     // Relational Tables
@@ -73,11 +74,10 @@
 
     $conn->query($sql);
     $sql = "CREATE TABLE Establishes(
-        IndividuaID INT NOT NULL,
+        IndividualID INT NOT NULL,
         ConnectionID INT NOT NULL,
         FOREIGN KEY (IndividualID) REFERENCES Individual(IndividualID),
         FOREIGN KEY (ConnectionID) REFERENCES Connection(ConnectionID)
-
     )";
     $conn->query($sql);
     $sql = "CREATE TABLE PartOf(
@@ -92,8 +92,7 @@
         Type VARCHAR(40) NOT NULL,
         Description VARCHAR(40) NOT NULL,
         FOREIGN KEY (AffiliationID) REFERENCES Affiliation(AffiliationID),
-        FOREIGN KEY (Type) REFERENCES ContactInformation(Type),
-        FOREIGN KEY (Description) REFERENCES ContactInformation(Description),
+        FOREIGN KEY (Type, Description) REFERENCES ContactInformation(Type, Description)
     )";
     
     $conn->query($sql);
@@ -102,8 +101,7 @@
         Type VARCHAR(40) NOT NULL,
         Description VARCHAR(40) NOT NULL,
         FOREIGN KEY (IndividualID) REFERENCES Individual(IndividualID),
-        FOREIGN KEY (Type) REFERENCES ContactInformation(Type),
-        FOREIGN KEY (Description) REFERENCES ContactInformation(Description),
+        FOREIGN KEY (Type, Description) REFERENCES ContactInformation(Type, Description)
     )";
     
     $conn->query($sql);
