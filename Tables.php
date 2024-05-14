@@ -1,7 +1,6 @@
 <?php
     include 'Connect.php';
 
-    
     $sql  = "CREATE TABLE Individual(
         Name VARCHAR (40),
         Birth DATE,
