@@ -3,7 +3,7 @@ include "Connect.php";
 
 if (isset($_POST['search'])){
     $name = $_POST['search'];
-    $query = "SELECT Name FROM Individual WHERE Name LIKE '%$name%' LIMIT 5 ";
+    $query = "SELECT FName FROM Individual WHERE FName LIKE '%$name%' LIMIT 5 ";
     $queryResults = mysqli_query($conn,$query);
     
     echo '
@@ -12,9 +12,9 @@ if (isset($_POST['search'])){
 
     while($result = mysqli_fetch_array($queryResults)){
         ?>
-        <li onclick='fill("<?php echo $result['Name']; ?>")'>
+        <li onclick='fill("<?php echo $result['FName']; ?>")'>
         <a>
-            <?php echo $result['Name'];?>
+            <?php echo $result['FName'];?>
 
         
         </li></a>

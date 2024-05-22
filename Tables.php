@@ -2,9 +2,10 @@
     include 'Connect.php';
 
     $sql  = "CREATE TABLE Individual(
-        Name VARCHAR (40),
+        FName VARCHAR (40),
+        LName VARCHAR (40),
         Birth DATE,
-        IndividualID INT,
+        IndividualID INT AUTO_INCREMENT,
         Gender CHAR(40),
         PRIMARY KEY (IndividualID)
     )";
@@ -13,14 +14,14 @@
     $conn->query($sql);
 
     $sql = "CREATE TABLE Connection(
-        ConnectionID INT,
+        ConnectionID INT AUTO_INCREMENT,
         Role VARCHAR(40),
         PRIMARY KEY (ConnectionID)
     )";
 
     $conn->query($sql);
     $sql = "CREATE TABLE Affiliation(
-        AffiliationID INT,
+        AffiliationID INT AUTO_INCREMENT,
         Name VARCHAR(40),
         Type VARCHAR(20),
         Location VARCHAR(80),
@@ -30,25 +31,25 @@
     $conn->query($sql);
 
     $sql = "CREATE TABLE AssocInterest(
-        AssocIntID INT PRIMARY KEY 
+        AssocIntID INT AUTO_INCREMENT PRIMARY KEY 
     )";
 
     $conn->query($sql);
     $sql = "CREATE TABLE Interest(
-        InterestID INT PRIMARY KEY,
+        InterestID INT AUTO_INCREMENT PRIMARY KEY,
         Name VARCHAR(40)
     )";
 
     $conn->query($sql);
 
-        $sql = "CREATE TABLE ContactInformation(
-            Type VARCHAR(40) NOT NULL,
-            Description VARCHAR(40) NOT NULL,
-            IndividualID INT,
-            AffiliationID INT,
-            FOREIGN KEY (IndividualID) REFERENCES Individual(IndividualID),
-            FOREIGN KEY (AffiliationID) REFERENCES Affiliation(AffiliationID), 
-            PRIMARY KEY (Type,Description)
+    $sql = "CREATE TABLE ContactInformation(
+        Type VARCHAR(40) NOT NULL,
+        Description VARCHAR(40) NOT NULL,
+        IndividualID INT,
+        AffiliationID INT,
+        FOREIGN KEY (IndividualID) REFERENCES Individual(IndividualID),
+        FOREIGN KEY (AffiliationID) REFERENCES Affiliation(AffiliationID), 
+        PRIMARY KEY (Type,Description)
 
         )";
 
@@ -104,11 +105,5 @@
     )";
     
     $conn->query($sql);
-
-
-
-
-
-
 
     $conn->close();

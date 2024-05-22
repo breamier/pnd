@@ -5,7 +5,7 @@ if($_SERVER["REQUEST_METHOD" == "POST"]){
     $fname = $_POST["fname"];
     $lname = $_POST["lname"];
     $birthdate = $_POST["birthdate"];
-    $gender = $_POST["gender"]
+    $gender = $_POST["gender"];
     $infoTypes = $_POST['infoType'];
     $infoDescs = $_POST['infoDesc'];
 
@@ -14,6 +14,6 @@ if($_SERVER["REQUEST_METHOD" == "POST"]){
         $infoDesc = $infoDescs[$i];
     }
 
-    $sql = "INSERT INTO "
+    $sql = "INSERT INTO ";
 }
 ?>

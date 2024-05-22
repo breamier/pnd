@@ -29,6 +29,7 @@
             <label for="contact">Contact Information:</label><br>
             <div id="contactInfo">
                 <div>
+                    <a onclick="add_field()">Add</a>
                     <label for="infoType">Contact: </label>
                     <select class="expand" name="infoType1">
                         <option value="" disabled="">--Select Type--</option>
@@ -41,12 +42,13 @@
                         <option value="others">Others</option>
                     </select>
                     <input type="text" id="infoDesc" name="infoDesc">
+                    
                     <button onclick="remove_field(this)">Remove</button>
+                    
                 </div>
             </div>        
             <input type="submit">
         </form>
-        <button onclick="add_field()">Add</button>
         
 
         <h2>Add Affiliation</h2>
