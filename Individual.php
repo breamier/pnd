@@ -10,7 +10,7 @@ $iRow = $conn->query($indivSQL)->fetch_assoc();
 // $aRow = $conn->query($affilSQL)->fetch_assoc();
 ?>
 <html>
-    <head>
+    <head>  
         <link rel="stylesheet" type="text/css" href="styles.css"/>
     </head>
     <body>
@@ -18,6 +18,12 @@ $iRow = $conn->query($indivSQL)->fetch_assoc();
             <div class="header">
                 <h1 class="title"><?php echo $iRow['FName']." ".$iRow['LName']?></h1>
                 <h2 class="subtitle"></h2>
+            </div>
+            <div class = "info">
+                <p>Fullname</p>
+                <p>Birthday</p>
+                <p>Age</p>
+                
             </div>
         </div>
     </body>
