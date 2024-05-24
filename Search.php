@@ -32,6 +32,8 @@ $(document).ready(function(){
         }
     });
 });
+
+
 </script>
 
 
@@ -43,9 +45,35 @@ $(document).ready(function(){
 
 <html>
     <body>
-        <form name="searchBar">
-            <input type="text" size="30" id="searchBox">
+        <form name="searchBar" method="post" action="Search.php">
+            <input type="text" size="30" id="searchBox" name="search">
+            <input type="submit" value="Search" name='button'>
             <div id="searchResults">Hello</div>
         </form>
+        <div id="searchCards">
+        </div>
     </body>
 </html>
+
+<?php
+    include 'Connect.php';
+    $req = $_REQUEST['button'];
+
+    switch($req){
+        case 'Search':
+            $name = $_POST['search'];
+            $sql = "SELECT * FROM Individual WHERE FName LIKE '%$name%'";
+            $result = $conn->query($sql);
+
+            while($contact = $result->fetch_assoc()){
+                
+                echo    "<div>".
+                        "<a href='Individual.php?id=".$contact["IndividualID"]."'><p>".$contact["FName"]." ".$contact["LName"]."</p></a>".
+                        "<br></div>";
+
+            }
+
+    }
+
+
+?>
