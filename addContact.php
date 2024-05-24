@@ -9,6 +9,7 @@ if($_SERVER["REQUEST_METHOD" == "POST"]){
     $infoTypes = $_POST['infoType'];
     $infoDescs = $_POST['infoDesc'];
 
+    
     for ($i = 0; $i < count($infoTypes); $i++) {
         $infoType = $infoTypes[$i];
         $infoDesc = $infoDescs[$i];

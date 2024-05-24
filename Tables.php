@@ -4,7 +4,9 @@
     $sql  = "CREATE TABLE Individual(
         FName VARCHAR (40),
         LName VARCHAR (40),
-        Birth DATE,
+        Month INT,
+        Day INT,
+        Year INT,
         IndividualID INT AUTO_INCREMENT,
         Gender CHAR(40),
         PRIMARY KEY (IndividualID)
@@ -24,7 +26,9 @@
         AffiliationID INT AUTO_INCREMENT,
         Name VARCHAR(40),
         Type VARCHAR(20),
-        Location VARCHAR(80),
+        City VARCHAR(40),
+        Province VARCHAR(40),
+        Country VARCHAR(40),
         PRIMARY KEY (AffiliationID)
     )";
 
@@ -50,7 +54,6 @@
         FOREIGN KEY (IndividualID) REFERENCES Individual(IndividualID),
         FOREIGN KEY (AffiliationID) REFERENCES Affiliation(AffiliationID), 
         PRIMARY KEY (Type,Description)
-
         )";
 
     $conn->query($sql);

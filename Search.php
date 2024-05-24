@@ -36,13 +36,6 @@ $(document).ready(function(){
 
 </script>
 
-
-
-
-
-
-
-
 <html>
     <body>
         <form name="searchBar" method="post" action="Search.php">
