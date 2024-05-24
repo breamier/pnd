@@ -2,7 +2,7 @@ var num = 2;
 function add_field(){
     var div = document.createElement('div');
     var html=`<label for="infoType">Contact: </label>\
-                <select class="expand" name="infoType`+num+`">\
+                <select class="expand" name="infoType[]">\
                     <option value="" disabled="">--Select Type--</option>\
                     <option value="phoneNum">Phone Number</option>\
                     <option value="email">Email</option>\
@@ -12,7 +12,7 @@ function add_field(){
                     <option value="website">Website</option>\
                     <option value="others">Others</option>\
                 </select>\
-                <input type="text" id="infoDesc" name="infoDesc`+num+`">\
+                <input type="text" id="infoDesc" name="infoDesc[]">\
                 <button onclick="remove_field(this)">Remove</button>`;
     div.innerHTML = html;
     document.getElementById('contactInfo').appendChild(div);
@@ -26,7 +26,7 @@ function remove_field(element) {
 function add_affContactField(){
     var div = document.createElement('div');
     var html='<label for="infoType">Contact: </label>\
-                <select class="expand" name="infoType">\
+                <select class="expand" name="infoType[]">\
                     <option value="" disabled="">--Select Type--</option>\
                     <option value="phoneNum">Phone Number</option>\
                     <option value="email">Email</option>\
