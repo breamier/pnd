@@ -9,15 +9,12 @@ function fill(value){
     $('#searchResults').hide();
 }
 $(document).ready(function(){
-    console.log("test 1");
     $("#searchBox").keyup(function(){
-        console.log("test 2");
+
         var name = $('#searchBox').val();
         if (name=="") {
-            console.log("test 3");
             $('#searchResults').html("");
         } else {
-            console.log("test 4");
             $.ajax({
                 type: "POST", 
                 url:"getSearchResults.php", 
