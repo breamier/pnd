@@ -1,3 +1,7 @@
+:root{
+    --mainColor:#33333;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -7,4 +11,16 @@
 h1{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     width: 100%;
+}
+
+div.info{
+    border: 1px solid ;
+    width: auto;
+    display: inline-block;
+}
+
+div.flexC{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
 }
