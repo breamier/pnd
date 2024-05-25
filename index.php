@@ -1,3 +1,6 @@
+<?php
+include "Connect.php";
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,17 +11,31 @@
         <script src="script.js"></script>
     </head>
     <body>
+        <?php
+        $sql = "SELECT AffiliationID, Name FROM affiliation";
+        $result = $conn->query($sql);
+                
+        $affOptions = array();
+                    
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $affOptions[$row['AffiliationID']] = $row['Name'];
+            }
+        }
+        ?>
+
+        <script>
+            var affOptions = <?php echo json_encode($affOptions); ?>;
+        </script>
 
         <h2>Add Contact Information</h2>
         <form action="addContact.php" method="post">
-            <label for="fname">First Name:</label><br>
-            <input type="text" id="fname" name="fname"><br>
+            <label for="name">Name:</label>
+            <input type="text" id="fname" name="fname" placeholder="First Name">
+            <input type="text" id="lname" name="lname" placeholder="Last Name"><br>
 
-            <label for="lname">Last Name:</label><br>
-            <input type="text" id="lname" name="lname"><br>
-
-            <label for="birthdate">Birthdate:</label><br>
-            <input class="expand" type="date" name="birthdate"><br>
+            <label for="birthdate">Birthdate:</label>
+            <input class="expand" type="date" name="birthdate" placeholder="Birthdate"><br>
 
             <label for="gender">Gender:</label><br>
             <input type="radio" name="gender" value="male">Male<br>
@@ -46,7 +63,24 @@
                     <button onclick="remove_field(this)">Remove</button>
                     
                 </div>
-            </div>        
+            </div>
+            <label for="contact">Contact Information:</label><br>
+            <div id="affiliationChoices">
+                <a onclick="add_roleField()">Add</a>
+                <div>
+                    <label for="affiliation">Affiliation: </label>
+                    <select class="expand" name="affiliation[]">
+                        <option value="" disabled="">--Select Type--</option>
+                        <!--Retrieve Affiliations-->
+                        <?php
+                            foreach ($affOptions as $aff_id => $aff_name) {
+                                echo "<option value='$aff_id'>$aff_name</option>";
+                            }
+                        ?>
+                    </select>
+                    <input type="text" id="role" name="role[]" placeholder="Role">
+                </div>
+            </div>
             <input type="submit">
         </form>
         
