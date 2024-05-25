@@ -24,3 +24,52 @@ div.flexC{
     flex-flow: column wrap;
     justify-content: center;
 }
+
+form{
+    width: 50%;
+    margin: 0 auto;
+    border: 3px solid black;
+    border-radius: 50px;
+    padding: 5%;
+}
+
+header{
+    overflow: hidden;
+    background-color: black;
+    margin-bottom: 20px;
+    height: 60px;
+    padding: 10px;
+}
+
+header a{
+    float: right;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+header .logo{
+    float: left;
+}
+
+header .logo span{
+    margin-left: 15px;
+}
+
+label{
+    padding-top: 20px;
+}
+
+.add{
+    width:15px;
+}
+.form-label{
+    text-align: center;
+}
+
+.logoimg{
+    width: 20px;
+}

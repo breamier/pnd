@@ -8,6 +8,7 @@ include "Connect.php";
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Personal Networking Database</title>
         <link rel="icon" type="image/x-icon" href="">
+        <link rel="stylesheet" type="text/css" href="css/styles.css"/>
         <script src="script.js"></script>
     </head>
     <body>
@@ -28,7 +29,14 @@ include "Connect.php";
             var affOptions = <?php echo json_encode($affOptions); ?>;
         </script>
 
-        <h2>Add Contact Information</h2>
+        <header>
+            <a class="logo" href="#"><img src="images/logo.png" class="logoimg"><span>Personal Networking Database</span></a>
+            <a href="#">Affiliations</a>
+            <a href="#">Contacts</a>
+            <a href="#" class="active">Home</a>
+        </header>
+
+        <h2 class="form-label">Add a Contact</h2>
         <form action="addContact.php" method="post">
             <label for="name">Name:</label>
             <input type="text" id="fname" name="fname" placeholder="First Name">
@@ -43,11 +51,10 @@ include "Connect.php";
             <input type="radio" name="gender" value="pnts">Prefer Not to Say<br>
             <input type="radio" name="gender" value="others">Others<br>
 
-            <label for="contact">Contact Information:</label><br>
+            <label for="contact">Contact Information:</label>
             <div id="contactInfo">
-                <a onclick="add_field()">Add</a>
+                <a onclick="add_field()"><img src="images/add.png" class="add"></a>
                 <div>
-                    <label for="infoType">Contact: </label>
                     <select class="expand" name="infoType[]">
                         <option value="" disabled="">--Select Type--</option>
                         <option value="phoneNum">Phone Number</option>
@@ -58,17 +65,13 @@ include "Connect.php";
                         <option value="website">Website</option>
                         <option value="others">Others</option>
                     </select>
-                    <input type="text" id="infoDesc" name="infoDesc[]">
-                    
-                    <button onclick="remove_field(this)">Remove</button>
-                    
+                    <input type="text" id="infoDesc" name="infoDesc[]">                    
                 </div>
             </div>
-            <label for="contact">Contact Information:</label><br>
+            <label for="affiliation">Affiliations:</label>
             <div id="affiliationChoices">
-                <a onclick="add_roleField()">Add</a>
+                <a onclick="add_roleField()"><img src="images/add.png" class="add"></a>
                 <div>
-                    <label for="affiliation">Affiliation: </label>
                     <select class="expand" name="affiliation[]">
                         <option value="" disabled="">--Select Type--</option>
                         <!--Retrieve Affiliations-->
@@ -85,7 +88,7 @@ include "Connect.php";
         </form>
         
 
-        <h2>Add Affiliation</h2>
+        <h2 class="form-label">Add Affiliation</h2>
         <form action="addAffiliation.php" method="post">
             <label for="affName">Name of Affiliation:</label><br>
             <input type="text" id="affName" name="affName"><br>
@@ -108,11 +111,10 @@ include "Connect.php";
             <label for="country">Country:</label><br>
             <input type="text" id="country" name="country"><br>
 
-            <label for="contact">Contact Information:</label><br>
+            <label for="contact">Contact Information:</label>
             <div id="affContactInfo">
-                <a onclick="add_affContactField()">Add</a>
+                <a onclick="add_affContactField()"><img src="images/add.png" class="add"></a>
                 <div>
-                    <label for="infoType">Contact: </label>
                     <select class="expand" name="infoType[]">
                         <option value="" disabled="">--Select Type--</option>
                         <option value="phoneNum">Phone Number</option>
@@ -124,7 +126,6 @@ include "Connect.php";
                         <option value="others">Others</option>
                     </select>
                     <input type="text" id="infoDesc" name="infoDesc[]">
-                    <button onclick="remove_field(this)">Remove</button>
                 </div>
             </div>
             <input type="submit">
