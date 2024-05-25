@@ -1,7 +1,6 @@
 function add_field(){
     var div = document.createElement('div');
-    var html=`<label for="infoType">Contact: </label>\
-                <select class="expand" name="infoType[]">\
+    var html=`<select class="expand" name="infoType[]">\
                     <option value="" disabled="">--Select Type--</option>\
                     <option value="phoneNum">Phone Number</option>\
                     <option value="email">Email</option>\
@@ -23,8 +22,7 @@ function remove_field(element) {
 
 function add_affContactField(){
     var div = document.createElement('div');
-    var html=`<label for="infoType">Contact: </label>\
-                <select class="expand" name="infoType[]">\
+    var html=`<select class="expand" name="infoType[]">\
                     <option value="" disabled="">--Select Type--</option>\
                     <option value="phoneNum">Phone Number</option>\
                     <option value="email">Email</option>\
@@ -42,8 +40,7 @@ function add_affContactField(){
 
 function add_roleField(){
     var div = document.createElement('div');
-    var html = `<label for="affiliation">Affiliation: </label>
-                    <select class="expand" name="affiliation[]">
+    var html = `<select class="expand" name="affiliation[]">
                         <option value="" disabled="">--Select Type--</option>`;
                         for (var aff_id in affOptions) {
                             html += `<option value="${aff_id}">${affOptions[aff_id]}</option>`;
