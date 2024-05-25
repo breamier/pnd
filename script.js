@@ -40,4 +40,20 @@ function add_affContactField(){
     document.getElementById('affContactInfo').appendChild(div);
 }
 
+function add_roleField(){
+    var div = document.createElement('div');
+    var html = `<label for="affiliation">Affiliation: </label>
+                    <select class="expand" name="affiliation[]">
+                        <option value="" disabled="">--Select Type--</option>`;
+                        for (var aff_id in affOptions) {
+                            html += `<option value="${aff_id}">${affOptions[aff_id]}</option>`;
+                        }
+                        
+                        html += `</select>
+                    <input type="text" id="role" name="role[]" placeholder="Role">
+                    <button onclick="remove_field(this)">Remove</button>`;
+    div.innerHTML = html;
+    document.getElementById('affiliationChoices').appendChild(div);
+}
+
 

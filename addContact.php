@@ -8,6 +8,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $gender = $_POST["gender"];
     $infoTypes = $_POST["infoType"]; 
     $infoDescs = $_POST["infoDesc"];
+    $affiliations = $_POST["affiliation"];
+    $roles = $_POST["role"];
 
     list($year, $month, $day) = explode('-', $birthdate);
 
@@ -38,5 +40,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             echo "Added to Individual Contact Table Successfully";
         }
     }   
+
+    for($j = 0; $j < count($affiliations); $j++){
+        $sql_connection = "INSERT INTO `connection` (`ConnectionID`, `Role`)
+            VALUES ('', '$roles[$j]')";
+
+        if($conn->query($sql_connection) === TRUE){
+            echo 'Added Connection and Role';
+        }
+
+        $conn_id = $conn->insert_id;
+
+        $sql_establishes = "INSERT INTO `establishes`(`IndividualID`, `ConnectionID`)
+            VALUES ('$idv_id', '$conn_id')";
+        if($conn->query($sql_establishes) === TRUE){
+            echo 'Added to Establishes';
+        }
+        $sql_partof = "INSERT INTO `partof`(`AffiliationID`, `ConnectionID`)
+            VALUES ('$affiliations[$j]', '$conn_id')";
+        if($conn->query($sql_partof) === TRUE){
+            echo 'Added to partof relation';
+        }
+    }
+
 }
 ?>
