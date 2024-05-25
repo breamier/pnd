@@ -28,8 +28,8 @@
 
             <label for="contact">Contact Information:</label><br>
             <div id="contactInfo">
+                <a onclick="add_field()">Add</a>
                 <div>
-                    <a onclick="add_field()">Add</a>
                     <label for="infoType">Contact: </label>
                     <select class="expand" name="infoType[]">
                         <option value="" disabled="">--Select Type--</option>
@@ -52,7 +52,7 @@
         
 
         <h2>Add Affiliation</h2>
-        <form action="addAffiliation.php" method="get">
+        <form action="addAffiliation.php" method="post">
             <label for="affName">Name of Affiliation:</label><br>
             <input type="text" id="affName" name="affName"><br>
 
@@ -76,6 +76,7 @@
 
             <label for="contact">Contact Information:</label><br>
             <div id="affContactInfo">
+                <a onclick="add_affContactField()">Add</a>
                 <div>
                     <label for="infoType">Contact: </label>
                     <select class="expand" name="infoType[]">
@@ -88,12 +89,11 @@
                         <option value="website">Website</option>
                         <option value="others">Others</option>
                     </select>
-                    <input type="text" id="infoDesc" name="infoDesc">
+                    <input type="text" id="infoDesc" name="infoDesc[]">
                     <button onclick="remove_field(this)">Remove</button>
                 </div>
             </div>
             <input type="submit">
         </form>
-        <button onclick="add_affContactField()">Add</button>
     </body>
 </html>

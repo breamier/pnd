@@ -11,7 +11,7 @@ $iRow = $conn->query($indivSQL)->fetch_assoc();
 ?>
 <html>
     <head>  
-        <link rel="stylesheet" type="text/css" href="styles.css"/>
+        <link rel="stylesheet" type="text/css" href="css/styles.css"/>
     </head>
     <body>
         <div class="flexC">

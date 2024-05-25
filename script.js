@@ -1,4 +1,3 @@
-var num = 2; 
 function add_field(){
     var div = document.createElement('div');
     var html=`<label for="infoType">Contact: </label>\
@@ -16,7 +15,6 @@ function add_field(){
                 <button onclick="remove_field(this)">Remove</button>`;
     div.innerHTML = html;
     document.getElementById('contactInfo').appendChild(div);
-    num++;
 }
 
 function remove_field(element) {
@@ -25,7 +23,7 @@ function remove_field(element) {
 
 function add_affContactField(){
     var div = document.createElement('div');
-    var html='<label for="infoType">Contact: </label>\
+    var html=`<label for="infoType">Contact: </label>\
                 <select class="expand" name="infoType[]">\
                     <option value="" disabled="">--Select Type--</option>\
                     <option value="phoneNum">Phone Number</option>\
@@ -36,8 +34,8 @@ function add_affContactField(){
                     <option value="website">Website</option>\
                     <option value="others">Others</option>\
                 </select>\
-                <input type="text" id="infoDesc" name="infoDesc">\
-                <button onclick="remove_field(this)">Remove</button>';
+                <input type="text" id="infoDesc" name="infoDesc[]">\
+                <button onclick="remove_field(this)">Remove</button>`;
     div.innerHTML = html;
     document.getElementById('affContactInfo').appendChild(div);
 }
