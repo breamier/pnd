@@ -10,6 +10,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $infoDescs = $_POST["infoDesc"];
     $affiliations = $_POST["affiliation"];
     $roles = $_POST["role"];
+    $interests = $_POST['interest'];
 
     list($year, $month, $day) = explode('-', $birthdate);
 
@@ -61,6 +62,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if($conn->query($sql_partof) === TRUE){
             echo 'Added to partof relation';
         }
+    }
+
+    for($z = 0; $z < count($interests); $z++){
+        $sql_assoc_id = "INSERT INTO `associnterest`(`AssocIntID`) VALUES('')";
+        if($conn->query($sql_assoc_id)){
+            echo "Inserted assoc_id";
+        }
+
+        $assoc_id = $conn->insert_id;
+
+        $sql_idv_assoc = "INSERT INTO `individual_associnterest`(`AssocIntID`, `IndividualID`)
+            VALUES('$assoc_id', '$idv_id')";
+
+        if($conn->query($sql_idv_assoc) === TRUE){
+            echo "Linked Indiv to Assoc";
+        }
+        $sql_assoc_int = "INSERT INTO `interest_associnterest`(`InterestID`, `AssocIntID`)
+            VALUES ('".$interests[$z]."', '$assoc_id')";
+        if($conn->query($sql_assoc_int) === TRUE){
+            echo "Added Interest and AssocID";
+        }   
     }
 
 }
