@@ -23,10 +23,22 @@ include "Connect.php";
                 $affOptions[$row['AffiliationID']] = $row['Name'];
             }
         }
+
+        $query = "SELECT InterestID, Name FROM interest";
+        $result1 = $conn->query($query);
+
+        $interestOptions = array();
+
+        if ($result1->num_rows > 0) {
+            while ($row1 = $result1->fetch_assoc()) {
+                $interestOptions[$row1['InterestID']] = $row1['Name'];
+            }
+        }
         ?>
 
         <script>
             var affOptions = <?php echo json_encode($affOptions); ?>;
+            var interestOptions = <?php echo json_encode($interestOptions); ?>;
         </script>
 
         <header>
@@ -84,6 +96,21 @@ include "Connect.php";
                     <input type="text" id="role" name="role[]" placeholder="Role">
                 </div>
             </div>
+            <label for="interest">Interests:</label>
+            <div id="interestChoices">
+                <a onclick="add_interest()"><img src="images/add.png" class="add"></a>
+                <div>
+                    <select class="expand" name="interest[]">
+                        <option value="" disabled="">--Select Interests--</option>
+                        <!--Retrieve Interests-->
+                        <?php
+                            foreach ($interestOptions as $int_id => $int_name) {
+                                echo "<option value='$int_id'>$int_name</option>";
+                            }
+                        ?>
+                    </select>
+                </div>
+            </div>
             <input type="submit">
         </form>
         
@@ -128,6 +155,12 @@ include "Connect.php";
                     <input type="text" id="infoDesc" name="infoDesc[]">
                 </div>
             </div>
+            <input type="submit">
+        </form>
+        
+        <h2 class="form-label">Add A Category for Interests</h2>
+        <form action="addInterest.php" method="post">
+            <input type="text" placeholder="e.g. Swimming, Arts" name="interest">
             <input type="submit">
         </form>
     </body>

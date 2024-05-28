@@ -53,4 +53,18 @@ function add_roleField(){
     document.getElementById('affiliationChoices').appendChild(div);
 }
 
+function add_interest(){
+    var div = document.createElement('div');
+    var html = `<select class="expand" name="interest[]">
+                        <option value="" disabled="">--Select Interests--</option>`;
+                        for (var int_id in interestOptions) {
+                            html += `<option value="${int_id}">${interestOptions[int_id]}</option>`;
+                        }
+                        
+                        html += `</select>
+                    <button onclick="remove_field(this)">Remove</button>`;
+    div.innerHTML = html;
+    document.getElementById('interestChoices').appendChild(div);
+}
+
 
