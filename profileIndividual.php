@@ -16,7 +16,7 @@ include 'dbConnect.php';
     <body>
     <?php include 'components/compNav.php'?>
         <div class="flex">
-        <section class="section left">
+        <section class="section">
             <div class="heading">
                 <h1 class="title"><?php echo $dataRow['FName']." ".$dataRow['LName']?></h1>
                 <h2 class="subtitle"></h2>
