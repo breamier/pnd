@@ -13,8 +13,8 @@ include 'dbConnect.php';
     <body>
     <?php include 'components/compNav.php'?>
         <div class="flex">
-        <section class="section left">
-            <div class="heading">
+        <section class="section main">
+            <div class="heading main">
                 <h1 class="title"><?php echo $dataRow['Name']?></h1>
                 <h2 class="subtitle"><?php echo $dataRow['Type']?></h2>
             </div>
@@ -22,21 +22,19 @@ include 'dbConnect.php';
                 <?php echo $dataRow['City'].", ".$dataRow['Province'].", ".$dataRow['Country']?>
             </div>
         </section>
-        <section class="section center">
-        <section class="section right">
+        <section class="section">
             <div class="heading">
                 <h1>Contacts</h1>
             </div>
-            <div class="body"  id="contactDispaly">
+            <div class="body"  id="contactDisplay">
                 <?php
                     while($row=$indiv->fetch_assoc()){
                         $indivID = $row['IndividualID'];
                         $sql = "SELECT Role FROM (PartOf NATURAL JOIN Connection NATURAL JOIN Establishes) WHERE IndividualID = $indivID";
-                        $conn->query($sql);
+                        $role =$conn->query($sql)->fetch_assoc();
 
-                        echo    "<a><div>".
-                                "<p>".$row['FName']." ".$row['LName']."</p>".
-                                "<p>".
+                        echo    "<a href='profileIndividual.php?id=".$indivID."'><div class='result profile'>".
+                                "<p>".$row['FName']." ".$row['LName']." - ".$role['Role']."</p>".
                                 "</a></div>";
                     }
                 ?>
