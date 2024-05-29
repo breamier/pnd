@@ -1,5 +1,5 @@
 <?php
-include "Connect.php";
+include "dbConnect.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,6 +14,7 @@ include "Connect.php";
     <body>
         <?php include 'components/compNav.php';?>
         <?php
+
         $sql = "SELECT AffiliationID, Name FROM affiliation";
         $result = $conn->query($sql);
                 
