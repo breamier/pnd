@@ -11,9 +11,9 @@ include 'dbConnect.php';
 <html>
 <?php include 'components/compHead.php'; ?>
     <body>
-    <?php include 'components/compNav.php'?>
+        <?php include 'components/compNav.php'?>
         <div class="flex">
-        <section class="section main">
+        <section class="section">
             <div class="heading main">
                 <h1 class="title"><?php echo $dataRow['Name']?></h1>
                 <h2 class="subtitle"><?php echo $dataRow['Type']?></h2>
@@ -39,6 +39,12 @@ include 'dbConnect.php';
                     }
                 ?>
             </div>
+        </section>
+        <section class='actions'>
+            <form action='deleteAffiliation.php' method='GET'>
+                <input type="submit" name="delete" value="Delete">
+                <input type='hidden' value='<?php echo $id?>' name='id'>
+            </form>
         </section>
         </div>
     </body>

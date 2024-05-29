@@ -60,6 +60,13 @@ include 'dbConnect.php';
                 ?>
             </div>
         </section>
+        <section class='actions'>
+            <form action='deleteContact.php' method='GET'>
+                <input type="submit" name="delete" value="Delete">
+                <input type='hidden' value='<?php echo $id?>' name='id'>
+            </form>
+        </section>
+
         </div>
     </body>
 </html>
