@@ -6,15 +6,17 @@ function fill(value){
 $(document).ready(function(){
     $("#searchBox").keyup(function(){
 
-        var name = $('#searchBox').val();
-        if (name=="") {
+        var toSearch = $('#searchBox').val();
+        var fromTable = $('#queryType').val();
+        if (toSearch=="") {
             $('#searchResults').html("");
         } else {
             $.ajax({
                 type: "POST", 
                 url:"getSearchResults.php", 
                 data: {
-                    search: name
+                    search: toSearch,
+                    table: fromTable
                 },
                 success: function(html){
                     console.log("test 5");

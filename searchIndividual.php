@@ -2,10 +2,16 @@
 <?php include 'components/compHead.php'; ?>
 <html>
     <body>
+        <?php include 'components/compNav.php';?>   
         <section class="section search">
         <form name="searchBar" method="post" action="<?php $_SERVER['PHP_SELF']?>">
             <input type="text" size="30" id="searchBox" name="search">
             <input type="submit" value="Search" name='button'>
+            <select name="queryType" id="queryType">
+                <option value="Individual">Contact</option>
+                <option value="Affiliation">Affiliation</option>
+                <option value="Intereset">Interest</option>
+            </select>
             <div id="searchResults" class="searchResults"></div>
         </form>
         </section>
