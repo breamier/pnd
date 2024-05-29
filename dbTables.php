@@ -1,5 +1,5 @@
 <?php
-    include 'Connect.php';
+    include 'dbConnect.php';
 
     $sql  = "CREATE TABLE Individual(
         FName VARCHAR (40),
