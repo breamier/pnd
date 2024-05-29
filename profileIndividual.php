@@ -14,7 +14,9 @@ include 'dbConnect.php';
 <html>
 <?php include 'components/compHead.php'; ?>
     <body>
-        <section class="section">
+    <?php include 'components/compNav.php'?>
+        <div class="flex">
+        <section class="section left">
             <div class="heading">
                 <h1 class="title"><?php echo $dataRow['FName']." ".$dataRow['LName']?></h1>
                 <h2 class="subtitle"></h2>
@@ -26,7 +28,7 @@ include 'dbConnect.php';
                 <p>Gender</p>
             </div>
         </section>
-        <section class="section">
+        <section class="section center">
             <div class="heading">
                 <h1>Affiliations</h1>
             </div>
@@ -41,7 +43,7 @@ include 'dbConnect.php';
                 ?>
             </div>
         </section>
-        <section class="section">
+        <section class="section right">
             <div class="heading">
                 <h1>Interests</h1>
             </div>
@@ -49,11 +51,12 @@ include 'dbConnect.php';
                 <?php
                     while($row=$interest->fetch_assoc()){
                         echo    "<a><div>".
-                                "<p>".$row['Name']."</p>".
+                                "<span class='tag'>".$row['Name']."</span>".
                                 "</a></div>";
                     }
                 ?>
             </div>
         </section>
+        </div>
     </body>
 </html>
