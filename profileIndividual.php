@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 include 'dbConnect.php';
-$id = $_GET["id"];
+$id = $_REQUEST["id"];
 $indivSQL = "SELECT * FROM Individual WHERE IndividualID = '$id'";
 // $affilID = "SELECT * FROM Partof WHERE ConnnectionID = (SELECT ConnectionID FROM Establishes WHERE IndividualID = '$id')";
 // $affilSQL = "SELECT * FROM Affiliation WHERE ConnectionID = '$affilID'";

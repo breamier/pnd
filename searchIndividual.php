@@ -56,10 +56,10 @@
 
                 while($row = $result->fetch_assoc()){                
                     // echo    "<div class='result'>".
-                    //         "<a href='profileIndividual.php?id=".$row[$id]."'><p>".$row[$attrib]." ".$contact["LName"]."</p></a>".
+                    //         "<a href='profileIndividual.php?id=".$row[$id]."><p>".$row[$attrib]." ".$contact["LName"]."</p></a>".
                     //         "<br></div>";
                     echo    "<div class='result'>".
-                            "<a href='".$link."'?id=".$row[$id]."'>".
+                            "<a href='".$link."?id=".$row[$id]."'>".
                             "<p>".$row[$attrib]." ";
                     if($table == 'Individual'){
                         echo $row["LName"];
