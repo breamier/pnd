@@ -22,10 +22,13 @@ include 'dbConnect.php';
                 <h2 class="subtitle"></h2>
             </div>
             <div class = "body">
-                <p>Fullname</p>
-                <p>Birthday</p>
-                <p>Age</p>
-                <p>Gender</p>
+                <p>Fullname: <?php echo $dataRow['FName']." ".$dataRow['LName'];?></p>
+                <p>Birthday: <?php
+                                $date =$dataRow['Year']."-".$dataRow['Month']."-".$dataRow['Day'];
+                                echo date('F d', strtotime($date))?>
+                </p>
+                <p>Age: <?php echo date('Y',time()-strtotime($date))-1970;?></p>
+                <p>Gender: <?php echo $dataRow['Gender'];?></p>
             </div>
         </section>
         <section class="section center">
@@ -35,7 +38,7 @@ include 'dbConnect.php';
             <div class="body"  id="affilDisplay">
                 <?php
                     while($row=$affil->fetch_assoc()){
-                        echo    "<a><div>".
+                        echo    "<a href=profileAffiliation.php?id=".$row['AffiliationID']."><div>".
                                 "<p>".$row['Name']."</p>".
                                 "<p>".$row['Type']." | ".$row['City'].", ".$row['Country']."</p>".
                                 "</a></div>";
@@ -50,7 +53,7 @@ include 'dbConnect.php';
             <div class="body"  id="interestDisplay">
                 <?php
                     while($row=$interest->fetch_assoc()){
-                        echo    "<a><div>".
+                        echo    "<a href=profileInterest.php?id=".$row['InterestID'].">".
                                 "<span class='tag'>".$row['Name']."</span>".
                                 "</a></div>";
                     }
