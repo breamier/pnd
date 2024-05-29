@@ -1,5 +1,5 @@
 <?php
-include 'Connect.php';
+include 'dbConnect.php';
 
 $interest = ucfirst(strtolower($_POST['interest']));
 
