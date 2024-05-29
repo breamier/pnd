@@ -41,14 +41,21 @@ include "Connect.php";
             var affOptions = <?php echo json_encode($affOptions); ?>;
             var interestOptions = <?php echo json_encode($interestOptions); ?>;
         </script>
-        <h2 class="form-label">Add a Contact</h2>
-        <form action="addContact.php" method="post">
-            <label for="name">Name:</label>
+        <header>
+            <a class="logo" href="#"><img src="images/logo.png" class="logoimg"><span>Personal Networking Database</span></a>
+            <a href="#">Affiliations</a>
+            <a href="#">Contacts</a>
+            <a href="#" class="active">Home</a>
+        </header>
+
+        <form action="addContact.php" method="post" autocomplete="off">
+            <h2 class="form-label">Add a Contact</h2>
+            <label for="name">Name:</label><br>
             <input type="text" id="fname" name="fname" placeholder="First Name">
             <input type="text" id="lname" name="lname" placeholder="Last Name"><br>
 
-            <label for="birthdate">Birthdate:</label>
-            <input class="expand" type="date" name="birthdate" placeholder="Birthdate"><br>
+            <label for="birthdate">Birthdate:</label><br>
+            <input class="expand" type="date" name="birthdate"><br>
 
             <label for="gender">Gender:</label><br>
             <input type="radio" name="gender" value="male">Male<br>
@@ -70,7 +77,7 @@ include "Connect.php";
                         <option value="website">Website</option>
                         <option value="others">Others</option>
                     </select>
-                    <input type="text" id="infoDesc" name="infoDesc[]">                    
+                    <input type="text" id="infoDesc" name="infoDesc[]" placeholder="Description">                    
                 </div>
             </div>
             <label for="affiliation">Affiliations:</label>
@@ -107,9 +114,8 @@ include "Connect.php";
             <input type="submit">
         </form>
         
-
-        <h2 class="form-label">Add Affiliation</h2>
-        <form action="addAffiliation.php" method="post">
+        <form action="addAffiliation.php" method="post" autocomplete="off">
+            <h2 class="form-label">Add Affiliation</h2>
             <label for="affName">Name of Affiliation:</label><br>
             <input type="text" id="affName" name="affName"><br>
 
@@ -122,14 +128,9 @@ include "Connect.php";
             </select><br>
 
             <label>Location:</label><br>
-            <label for="city">City:</label><br>
-            <input type="text" id="city" name="city"><br>
-
-            <label for="province">Province:</label><br>
-            <input type="text" id="province" name="province"><br>
-
-            <label for="country">Country:</label><br>
-            <input type="text" id="country" name="country"><br>
+            <input type="text" id="city" name="city" placeholder="City">
+            <input type="text" id="province" name="province" placeholder="Province">
+            <input type="text" id="country" name="country" placeholder="Country"><br>
 
             <label for="contact">Contact Information:</label>
             <div id="affContactInfo">
@@ -151,10 +152,12 @@ include "Connect.php";
             <input type="submit">
         </form>
         
-        <h2 class="form-label">Add A Category for Interests</h2>
-        <form action="addInterest.php" method="post">
-            <input type="text" placeholder="e.g. Swimming, Arts" name="interest">
-            <input type="submit">
-        </form>
+        <div class="interest-form">
+            <form action="addInterest.php" method="post">
+                <h2 class="form-label" autocomplete="off">Add A Category for Interests</h2>
+                <input type="text" placeholder="e.g. Swimming, Arts" name="interest">
+                <input type="submit">
+            </form>
+        </div>
     </body>
 </html>

@@ -11,7 +11,7 @@ function add_field(){
                     <option value="others">Others</option>\
                 </select>\
                 <input type="text" id="infoDesc" name="infoDesc[]">\
-                <button onclick="remove_field(this)">Remove</button>`;
+                <button onclick="remove_field(this)" class="remove">Remove</button>`;
     div.innerHTML = html;
     document.getElementById('contactInfo').appendChild(div);
 }
@@ -33,7 +33,7 @@ function add_affContactField(){
                     <option value="others">Others</option>\
                 </select>\
                 <input type="text" id="infoDesc" name="infoDesc[]">\
-                <button onclick="remove_field(this)">Remove</button>`;
+                <button onclick="remove_field(this)" class="remove">Remove</button>`;
     div.innerHTML = html;
     document.getElementById('affContactInfo').appendChild(div);
 }
@@ -48,7 +48,7 @@ function add_roleField(){
                         
                         html += `</select>
                     <input type="text" id="role" name="role[]" placeholder="Role">
-                    <button onclick="remove_field(this)">Remove</button>`;
+                    <button onclick="remove_field(this)" class="remove">Remove</button>`;
     div.innerHTML = html;
     document.getElementById('affiliationChoices').appendChild(div);
 }
@@ -62,7 +62,7 @@ function add_interest(){
                         }
                         
                         html += `</select>
-                    <button onclick="remove_field(this)">Remove</button>`;
+                    <button onclick="remove_field(this)" class="remove">Remove</button>`;
     div.innerHTML = html;
     document.getElementById('interestChoices').appendChild(div);
 }
