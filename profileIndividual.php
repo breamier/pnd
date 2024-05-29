@@ -30,6 +30,22 @@ include 'dbConnect.php';
                 <p>Age: <?php echo date('Y',time()-strtotime($date))-1970;?></p>
                 <p>Gender: <?php echo $dataRow['Gender'];?></p>
             </div>
+            <div class = "contactinfo">
+                <h1>Contact Information</h1>
+                <?php 
+                    $types = array("phoneNum"=>"Phone Number","email"=>"Email","facebook"=>"Facebook","instagram"=>"Instagram","linkedIn"=>"LinkedIn","website"=>"Website","others"=>"Others");
+
+                    $sql = "SELECT * FROM contactinformation NATURAL JOIN individual_contactinfo WHERE IndividualID = '$id'";
+                    $contact = $conn->query($sql);
+                    
+                    while($row=$contact->fetch_assoc()){
+                       
+                        $type = $row['Type'];
+                        echo $types[$type].": ".$row['Description']."<br>";
+                    }
+                
+                ?>
+            </div>
         </section>
         <section class="section center">
             <div class="heading">
@@ -45,6 +61,8 @@ include 'dbConnect.php';
                     }
                 ?>
             </div>
+
+        </section>
         </section>
         <section class="section right">
             <div class="heading">
