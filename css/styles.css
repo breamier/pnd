@@ -14,6 +14,10 @@
 body{
     background-color: rgb(206, 95, 167);
 }
+html, body{
+    height: 100%;
+    top:0;
+}
 h1{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     width: 100%;
@@ -45,8 +49,7 @@ form.add {
 header{
     overflow: hidden;
     background-color: var(--header);
-    margin-bottom: 20px;
-    height: 60px;
+    height: 10vh;
     padding: 10px;
 }
 
@@ -258,4 +261,20 @@ select{
     background-color: var(--header);
     color: white;
 
+}
+
+/* profile pages */
+.flex {
+    display: flex;
+    flex-flow: row, nowrap;
+    align-items: stretch;
+    align-content: stretch;
+    justify-content: space-between;
+    height: 90vh;
+    overflow: hidden;
+}
+
+.section{
+    background-color: var(--accent);
+    width: 100%;
 }
