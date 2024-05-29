@@ -104,13 +104,13 @@ if(isset($_POST['Update'])){
             <input type="text" id="lname" name="lname" placeholder="Last Name" value="<?php echo $result['LName']?>"><br>
 
             <label for="birthdate">Birthdate:</label><br>
-            <input class="expand" type="date" name="birthdate"><br>
+            <input class="expand" type="date" name="birthdate" ><br>
 
             <label for="gender">Gender:</label><br>
-            <input type="radio" name="gender" value="male">Male<br>
-            <input type="radio" name="gender" value="female">Female<br>
-            <input type="radio" name="gender" value="pnts">Prefer Not to Say<br>
-            <input type="radio" name="gender" value="others">Others<br>
+            <input type="radio" name="gender" value="male" <?php if($result['Gender']=='male'){echo 'selected';}?>>Male<br>
+            <input type="radio" name="gender" value="female" <?php if($result['Gender']=='female'){echo 'selected';}?>>Female<br>
+            <input type="radio" name="gender" value="pnts" <?php if($result['Gender']=='pnts'){echo 'selected';}?>>Prefer Not to Say<br>
+            <input type="radio" name="gender" value="others" <?php if($result['Gender']=='others'){echo 'selected';}?>>Others<br>
 
             <label for="contact">Contact Information:</label>
             <div id="contactInfo">
