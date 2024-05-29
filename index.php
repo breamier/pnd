@@ -42,14 +42,8 @@ include "dbConnect.php";
             var affOptions = <?php echo json_encode($affOptions); ?>;
             var interestOptions = <?php echo json_encode($interestOptions); ?>;
         </script>
-        <header>
-            <a class="logo" href="#"><img src="images/logo.png" class="logoimg"><span>Personal Networking Database</span></a>
-            <a href="#">Affiliations</a>
-            <a href="#">Contacts</a>
-            <a href="#" class="active">Home</a>
-        </header>
 
-        <form action="addContact.php" method="post" autocomplete="off">
+        <form action="addContact.php" method="post" autocomplete="off" class="add">
             <h2 class="form-label">Add a Contact</h2>
             <label for="name">Name:</label><br>
             <input type="text" id="fname" name="fname" placeholder="First Name">
@@ -115,7 +109,7 @@ include "dbConnect.php";
             <input type="submit">
         </form>
         
-        <form action="addAffiliation.php" method="post" autocomplete="off">
+        <form action="addAffiliation.php" method="post" autocomplete="off" class="add">
             <h2 class="form-label">Add Affiliation</h2>
             <label for="affName">Name of Affiliation:</label><br>
             <input type="text" id="affName" name="affName"><br>
@@ -153,7 +147,7 @@ include "dbConnect.php";
             <input type="submit">
         </form>
         
-        <div class="interest-form">
+        <div class="interest-form add">
             <form action="addInterest.php" method="post">
                 <h2 class="form-label" autocomplete="off">Add A Category for Interests</h2>
                 <input type="text" placeholder="e.g. Swimming, Arts" name="interest">
