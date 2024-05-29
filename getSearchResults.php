@@ -12,6 +12,8 @@ if (isset($_POST['search'])){
             $attrib = 'FName';
             break;
         case 'Interest':
+            $attrib = 'Name';
+            break;
         case 'Affiliation':
             $attrib = 'Name';
             break;
@@ -27,7 +29,9 @@ if (isset($_POST['search'])){
     echo '
     <ul>
     ';
-
+    if($queryResults->num_rows==0){
+        return;
+    }
     while($result = mysqli_fetch_array($queryResults)){
         ?>
         <li onclick='fill("<?php echo $result["$attrib"]; ?>")'>
