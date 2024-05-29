@@ -266,15 +266,51 @@ select{
 /* profile pages */
 .flex {
     display: flex;
-    flex-flow: row, nowrap;
-    align-items: stretch;
-    align-content: stretch;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--accent);
     height: 90vh;
-    overflow: hidden;
+
 }
 
 .section{
     background-color: var(--accent);
-    width: 100%;
+    text-align: center;
+}
+
+.main{
+    padding:2vh;
+
+}
+.main.heading{
+    text-align: center;
+    width: auto;
+    border-bottom: #8C2F39 1px solid;
+    padding:0;
+}
+#contactDisplay{
+    width: 100vw;
+    display:flex;
+    flex-direction: column;
+}
+
+#interestDisplay{
+    width:100vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.tag{
+    display: inline;
+    border-radius: 25%/50%;
+    background-color: var(--header);
+    padding: 0.5em;
+    /* color: var(--white); */
+    color: #111;
+
+}
+
+a {
+    text-decoration: none!important;
 }
