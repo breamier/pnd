@@ -42,7 +42,7 @@
                             case 'Affiliation':
                                 $attrib = 'Name';
                                 $id = 'AffiliationID';
-                                $link = '$profileAffiliation.php';
+                                $link = 'profileAffiliation.php';
                                 break;
                             
                     
