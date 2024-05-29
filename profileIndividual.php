@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-include 'Connect.php';
+include 'dbConnect.php';
 $id = $_GET["id"];
 $indivSQL = "SELECT * FROM Individual WHERE IndividualID = '$id'";
 // $affilID = "SELECT * FROM Partof WHERE ConnnectionID = (SELECT ConnectionID FROM Establishes WHERE IndividualID = '$id')";
@@ -10,9 +10,7 @@ $iRow = $conn->query($indivSQL)->fetch_assoc();
 // $aRow = $conn->query($affilSQL)->fetch_assoc();
 ?>
 <html>
-    <head>  
-        <link rel="stylesheet" type="text/css" href="css/styles.css"/>
-    </head>
+<?php include 'components/compHead.php'; ?>
     <body>
         <div class="flexC">
             <div class="header">

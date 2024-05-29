@@ -90,6 +90,94 @@ label{
     width: 20px;
 }
 
+/* Search Bar Styles */
+
+.searchResults{
+    text-align: left;
+}
+
+.searchResults ul{
+    background-color: antiquewhite;
+    list-style-type: none;
+    padding-left: 0%;
+    margin: auto;
+    width: 45%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+.searchResults li{
+    text-align: justify;
+    padding-left: 5%;
+}
+
+.searchResults li:hover{
+    background-color: rgb(221, 197, 166);
+}
+
+.search{
+    position: fixed;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+.search button{
+    color: antiquewhite;
+    background-color: #8C2F39;
+    border-style: none;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+.search button:hover{
+    background-color: #b23848;
+}
+
+.search input{
+    background-color: antiquewhite;
+    border-style: none;
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 1%;
+    margin-right: 5px;
+    width: 40%;
+    box-shadow: 0 9px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+.search input:focus{
+    box-shadow: 0 0 16px rgba(0,0,0,0.30), 0 0 0 rgba(0,0,0,0.22);
+}
+
+#searchCards{
+    padding-top: 5%;
+}
+
+.result{
+    background-color: #f0f0f0;
+    width: 60%;
+    margin: auto;
+    margin-top: 1.5%;
+    margin-bottom: 2%;
+    border-radius: 30px;
+    padding-inline: 5%;
+    padding-block: 1%;
+    text-align: justify;
+}
+
+.result:hover{
+    background-color: #cacacaad;
+}
+
+.result .coursetitle{
+    color: #8C2F39;
+    font-weight: bold;
+}
+
+.result a{
+    text-decoration: none;
+    color: #111;
+=======
 /*Form CSS*/
 
 .interest-form{
@@ -172,4 +260,5 @@ select{
     border-radius: 10px;
     background-color: var(--header);
     color: white;
+
 }

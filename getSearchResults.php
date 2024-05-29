@@ -1,5 +1,5 @@
 <?php
-include "Connect.php";
+include "dbConnect.php";
 
 if (isset($_POST['search'])){
     $name = $_POST['search'];
@@ -16,7 +16,7 @@ if (isset($_POST['search'])){
         <a>
             <?php echo $result['FName'];?>
 
-        
+            
         </li></a>
         <?php
     }

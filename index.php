@@ -12,6 +12,7 @@ include "Connect.php";
         <script src="script.js"></script>
     </head>
     <body>
+        <?php include 'components/compNav.php';?>
         <?php
         $sql = "SELECT AffiliationID, Name FROM affiliation";
         $result = $conn->query($sql);
@@ -40,7 +41,6 @@ include "Connect.php";
             var affOptions = <?php echo json_encode($affOptions); ?>;
             var interestOptions = <?php echo json_encode($interestOptions); ?>;
         </script>
-
         <header>
             <a class="logo" href="#"><img src="images/logo.png" class="logoimg"><span>Personal Networking Database</span></a>
             <a href="#">Affiliations</a>
