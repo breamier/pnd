@@ -5,8 +5,7 @@
     </div>
     <nav>
         <ul>
-            <a><li>Affiliations</a></li>
-            <a><li>Contacts</a></li>
+            <a href="search.php"><li>Search</a></li>
             <a><li>Home</a></li>
         </ul>
     </nav>
