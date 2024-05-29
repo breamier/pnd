@@ -2,7 +2,6 @@
 include 'dbConnect.php';
 
 $id = $_GET['id'];
-$connID = 
 
 $sql = "SELECT AssocIntID FROM individual_associnterest WHERE IndividualID = $id";
 $result = $conn->query($sql);
@@ -50,8 +49,6 @@ if($result->num_rows > 0){
             }
     }
 }
-
-
 
 $sql = "DELETE FROM individual_contactinfo WHERE IndividualID = $id";
 if($conn->query($sql) === TRUE){
