@@ -11,17 +11,14 @@ if($result->num_rows > 0){
         $assocID = $row['AssocIntID'];
         $sql = "DELETE FROM interest_associnterest WHERE AssocIntID = $assocID";
         if($conn->query($sql) === TRUE){
-                echo "Deleted 1";
             }
 
         $sql = "DELETE FROM individual_associnterest WHERE AssocIntID = $assocID";
         if($conn->query($sql) === TRUE){
-                echo "Deleted 2";
             }
 
         $sql = "DELETE FROM associnterest WHERE AssocIntID = $assocID";
         if($conn->query($sql) === TRUE){
-                echo "Deleted 3";
             }
     }
 }
@@ -35,35 +32,35 @@ if($result->num_rows > 0){
         // needs to delete multiple rows
         $sql = "DELETE FROM partof WHERE ConnectionID = $connID";
         if($conn->query($sql) === TRUE){
-                echo "Deleted 6";
+
             }
 
         $sql = "DELETE FROM establishes WHERE IndividualID = $id";
         if($conn->query($sql) === TRUE){
-                echo "Deleted 7";
+
             }
 
         $sql = "DELETE FROM connection WHERE ConnectionID = $connID";
         if($conn->query($sql) === TRUE){
-                echo "Deleted 8";
+
             }
     }
 }
 
 $sql = "DELETE FROM individual_contactinfo WHERE IndividualID = $id";
 if($conn->query($sql) === TRUE){
-        echo "Deleted 4";
     }
 
 $sql = "DELETE FROM contactinformation WHERE IndividualID = $id";
 if($conn->query($sql) === TRUE){
-        echo "Deleted 5";
+
     }
 
 $sql = "DELETE FROM individual WHERE IndividualID = $id";
 if($conn->query($sql) === TRUE){
-        echo "Deleted person";
+
     }
 
 $conn->close();
+header("Location: index.php");
 ?>

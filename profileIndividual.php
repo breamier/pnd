@@ -54,7 +54,7 @@ include 'dbConnect.php';
             <div class="body"  id="affilDisplay">
                 <?php
                     while($row=$affil->fetch_assoc()){
-                        echo    "<a href=profileAffiliation.php?id=".$row['AffiliationID']."><div>".
+                        echo    "<a href=profileAffiliation.php?id=".$row['AffiliationID']."><div class='result'>".
                                 "<p>".$row['Name']."</p>".
                                 "<p>".$row['Type']." | ".$row['City'].", ".$row['Country']."</p>".
                                 "</a></div>";
@@ -77,13 +77,18 @@ include 'dbConnect.php';
                     }
                 ?>
             </div>
-        </section>
-        <section class='actions'>
+            <section class='actions'>
             <form action='deleteContact.php' method='GET'>
                 <input type="submit" name="delete" value="Delete">
                 <input type='hidden' value='<?php echo $id?>' name='id'>
             </form>
+            <form action='updateIndividual.php' method='GET'>
+                <input type="submit" name="update" value="Update">
+                <input type='hidden' value='<?php echo $id?>' name='id'>
+            </form>
         </section>
+        </section>
+
 
         </div>
     </body>

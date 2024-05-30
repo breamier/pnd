@@ -155,7 +155,7 @@ label{
 
 .result{
     background-color: #f0f0f0;
-    width: 60%;
+    width: auto;
     margin: auto;
     margin-top: 1.5%;
     margin-bottom: 2%;
@@ -288,7 +288,7 @@ select{
     border-bottom: #8C2F39 1px solid;
     padding:0;
 }
-#contactDisplay{
+#contactDisplay, #affilDisplay{
     width: 100vw;
     display:flex;
     flex-direction: column;
