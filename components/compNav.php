@@ -6,7 +6,7 @@
     <nav>
         <ul>
             <a href="search.php"><li>Search</a></li>
-            <a><li>Home</a></li>
+            <a href="index.php"><li>Home</a></li>
         </ul>
     </nav>
 </header>
