@@ -114,7 +114,7 @@ if(isset($_POST['Update'])){
     <?php include 'components/compNav.php'?>
     <form action="<?php echo $_SERVER["PHP_SELF"]?>" method="post" autocomplete="off" class="add">
             <input type="hidden" name="id" value="<?php echo $id?>">
-            <h2 class="form-label">Add a Contact</h2>
+            <h2 class="form-label">Update Contact</h2>
             <label for="name">Name:</label><br>
             <input type="text" id="fname" name="fname" placeholder="First Name" value="<?php echo $result['FName']?>">
             <input type="text" id="lname" name="lname" placeholder="Last Name" value="<?php echo $result['LName']?>"><br>

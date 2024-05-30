@@ -83,6 +83,10 @@ include 'dbConnect.php';
                 <input type="submit" name="delete" value="Delete">
                 <input type='hidden' value='<?php echo $id?>' name='id'>
             </form>
+            <form action='updateIndividual.php' method='GET'>
+                <input type="submit" name="update" value="Update">
+                <input type='hidden' value='<?php echo $id?>' name='id'>
+            </form>
         </section>
 
         </div>
