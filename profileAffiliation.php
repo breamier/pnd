@@ -7,7 +7,8 @@ include 'dbConnect.php';
     $indivSQL = "SELECT * FROM Individual WHERE IndividualID IN (SELECT IndividualID FROM (PartOf NATURAL JOIN Connection NATURAL JOIN Establishes))";
     $dataRow = $conn->query($affilSQL)->fetch_assoc();
     $indiv = $conn->query($indivSQL);
-?>
+
+    ?>
 <html>
 <?php include 'components/compHead.php'; ?>
     <body>
@@ -20,6 +21,21 @@ include 'dbConnect.php';
             </div>
             <div class = "body">
                 <?php echo $dataRow['City'].", ".$dataRow['Province'].", ".$dataRow['Country']?>
+            </div>
+            <div class = "contactinfo">
+                <?php 
+                    $types = array("phoneNum"=>"Phone Number","email"=>"Email","facebook"=>"Facebook","instagram"=>"Instagram","linkedIn"=>"LinkedIn","website"=>"Website","others"=>"Others");
+
+                    $sql = "SELECT * FROM contactinformation NATURAL JOIN affiliation_contactinfo WHERE AffiliationID = '$id'";
+                    $contact = $conn->query($sql);
+                    
+                    while($row=$contact->fetch_assoc()){
+                       
+                        $type = $row['Type'];
+                        echo $types[$type].": ".$row['Description']."<br>";
+                    }
+                
+                ?>
             </div>
         </section>
         <section class="section">
@@ -39,13 +55,18 @@ include 'dbConnect.php';
                     }
                 ?>
             </div>
-        </section>
-        <section class='actions'>
+            <section class='actions'>
             <form action='deleteAffiliation.php' method='GET'>
                 <input type="submit" name="delete" value="Delete">
                 <input type='hidden' value='<?php echo $id?>' name='id'>
             </form>
+            <form action='updateAffiliation.php' method='GET'>
+                <input type="submit" name="update" value="Update">
+                <input type='hidden' value='<?php echo $id?>' name='id'>
+            </form>
         </section>
+        </section>
+
         </div>
     </body>
 </html>

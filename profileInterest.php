@@ -17,25 +17,21 @@ include 'dbConnect.php';
                 <h1 class="title"><?php echo $dataRow['Name']?></h1>
             </div>
         </section>
-        <section class="section right">
+        <section class="section">
             <div class="heading">
                 <h1>Contacts</h1>
             </div>
-            <div class="body"  id="contactDispaly">
+            <div class="body"  id="contactDisplay">
                 <?php
                     while($row=$indiv->fetch_assoc()){
                         $indivID = $row['IndividualID'];
-                        // $sql = "SELECT Role FROM (Indiv_AssocInterest NATURAL JOIN Interest_AssocInterest) WHERE IndividualID = $indivID";
-                        // $conn->query($sql);
 
-                        echo    "<a><div>".
+                        echo    "<a href='profileIndividual.php?id=".$indivID."'><div class='result profile'>".
                                 "<p>".$row['FName']." ".$row['LName']."</p>".
-                                "<p>".
                                 "</a></div>";
                     }
                 ?>
             </div>
-
         </section>
         <section class='actions'>
             <form action='deleteContact.php' method='GET'>

@@ -16,7 +16,7 @@ include 'dbConnect.php';
     <body>
     <?php include 'components/compNav.php'?>
         <div class="flex">
-        <section class="section left">
+        <section class="section">
             <div class="heading">
                 <h1 class="title"><?php echo $dataRow['FName']." ".$dataRow['LName']?></h1>
                 <h2 class="subtitle"></h2>
@@ -29,6 +29,22 @@ include 'dbConnect.php';
                 </p>
                 <p>Age: <?php echo date('Y',time()-strtotime($date))-1970;?></p>
                 <p>Gender: <?php echo $dataRow['Gender'];?></p>
+            </div>
+            <div class = "contactinfo">
+                <h1>Contact Information</h1>
+                <?php 
+                    $types = array("phoneNum"=>"Phone Number","email"=>"Email","facebook"=>"Facebook","instagram"=>"Instagram","linkedIn"=>"LinkedIn","website"=>"Website","others"=>"Others");
+
+                    $sql = "SELECT * FROM contactinformation NATURAL JOIN individual_contactinfo WHERE IndividualID = '$id'";
+                    $contact = $conn->query($sql);
+                    
+                    while($row=$contact->fetch_assoc()){
+                       
+                        $type = $row['Type'];
+                        echo $types[$type].": ".$row['Description']."<br>";
+                    }
+                
+                ?>
             </div>
         </section>
         <section class="section center">
@@ -45,6 +61,8 @@ include 'dbConnect.php';
                     }
                 ?>
             </div>
+
+        </section>
         </section>
         <section class="section right">
             <div class="heading">
