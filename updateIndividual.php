@@ -115,21 +115,8 @@ if(isset($_POST['Update'])){
             <label for="contact">Contact Information:</label>
             <div id="contactInfo">
                 <a onclick="add_field()"><img src="images/add.png" class="add"></a>
-                <!-- <div>
-                    <select class="expand" name="infoType[]">
-                        <option value="" disabled="">--Select Type--</option>
-                        <option value="phoneNum">Phone Number</option>
-                        <option value="email">Email</option>
-                        <option value="facebook">Facebook</option>
-                        <option value="instagram">Instagram</option>
-                        <option value="linkedIn">Linked In</option>
-                        <option value="website">Website</option>
-                        <option value="others">Others</option>
-                    </select>
-                    <input type="text" id="infoDesc" name="infoDesc[]" placeholder="Description">                    
-                </div> -->
                 <?php 
-                $sql = "SELECT * FROM contactinformation NATURAL JOIN affiliation_contactinfo WHERE AffiliationID = '$id'";
+                $sql = "SELECT * FROM contactinformation NATURAL JOIN individual_contactinfo WHERE IndividualID = '$id'";
                 $contact = $conn->query($sql);
 
                 while($row=$contact->fetch_assoc()){
@@ -158,23 +145,62 @@ if(isset($_POST['Update'])){
                 }
             
             
-            ?>
+                ?>
             </div>
             <label for="affiliation">Affiliations:</label>
             <div id="affiliationChoices">
                 <a onclick="add_roleField()"><img src="images/add.png" class="add"></a>
-                <div>
-                    <select class="expand" name="affiliation[]">
-                        <option value="" disabled="">--Select Type--</option>
-                        <!--Retrieve Affiliations-->
-                        <?php
-                            foreach ($affOptions as $aff_id => $aff_name) {
-                                echo "<option value='$aff_id'>$aff_name</option>";
+                <?php 
+                        $sql = "SELECT AffiliationID, Name FROM affiliation";
+                        $result = $conn->query($sql);
+                                
+                        $affOptions = array();
+                                    
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $affOptions[$row['AffiliationID']] = $row['Name'];
                             }
-                        ?>
-                    </select>
-                    <input type="text" id="role" name="role[]" placeholder="Role">
-                </div>
+                        }
+                        $query = "SELECT InterestID, Name FROM interest";
+                        $result1 = $conn->query($query);
+                
+                        $interestOptions = array();
+                
+                        if ($result1->num_rows > 0) {
+                            while ($row1 = $result1->fetch_assoc()) {
+                                $interestOptions[$row1['InterestID']] = $row1['Name'];
+                            }
+                        }
+                    ?>
+                 <script>
+                    var affOptions = <?php echo json_encode($affOptions); ?>;
+                    var interestOptions = <?php echo json_encode($interestOptions); ?>;
+                </script>
+                <?php
+                        $sql = "SELECT Affiliation.AffiliationID, Name, Type, Role FROM (Partof NATURLAL JOIN  Affiliation NATURAL JOIN Connection) WHERE Connection.ConnectionID IN (SELECT ConnectionID FROM Establishes WHERE IndividualID = '$id')";
+                        $contact = $conn->query($sql);
+
+                while($row=$contact->fetch_assoc()){
+                    $affilName = $row['Name'];
+                    $affilRole= $row['Role'];
+                    $affilID = $row['AffiliationID'];
+
+                    echo '<div>
+                            <select class="expand" name="affiliation[]">
+                            <option value="'.$affilID.'">'.$affilName.'</option>';
+                            foreach ($affOptions as $aff_id => $aff_name) {
+                                if(!($aff_id==$affilID)){
+                                echo "<option value='$aff_id'>$aff_name</option>";
+                                }
+                            }
+                    echo'</select>
+                    <input type="text" id="role" name="role[]" placeholder="Role" value="'.$affilRole.'">
+                    </div>';
+                }
+            
+            
+                ?>
+
             </div>
             <label for="interest">Interests:</label>
             <div id="interestChoices">
@@ -190,46 +216,9 @@ if(isset($_POST['Update'])){
                         ?>
                     </select>
                 </div>
+
             </div>
             <input type="submit">
-        </form>
-    <form action="<?php $_SERVER['PHP_SELF']?>" method="post" autocomplete="off" class="add">
-            <h2 class="form-label">Add Affiliation</h2>
-            <label for="affName">Name of Affiliation:</label><br>
-            <input type="text" id="affName" name="affName" value='<?php echo $result['Name']?>'><br>
-
-            <label for="affType">Type of Affiliation:</label><br>
-            <select class="expand" name="affType">
-                <option value="" disabled="">--Select Type of Affiliation--</option>
-                <option value="company" <?php if($result['Type']=='company'){echo 'selected';}?>>Company</option>
-                <option value="organization" <?php if($result['Type']=='organization'){echo 'selected';}?>>Organization</option>
-                <option value="school" <?php if($result['Type']=='school'){echo 'selected';}?>>School</option>
-            </select><br>
-
-            <label>Location:</label><br>
-            <input type="text" id="city" name="city" placeholder="City" value='<?php echo $result['City'] ?>'>
-            <input type="text" id="province" name="province" placeholder="Province" value='<?php echo $result['Province'] ?>'>
-            <input type="text" id="country" name="country" placeholder="Country" value='<?php echo $result['Country'] ?>'><br>
-
-            <label for="contact">Contact Information:</label>
-            <div id="affContactInfo">
-                <a onclick="add_affContactField()"><img src="images/add.png" class="add"></a>
-                <div>
-                        <!-- <select class="expand" name="infoType[]">
-                            <option value="" disabled="">--Select Type--</option>
-                            <option value="phoneNum">Phone Number</option>
-                            <option value="email">Email</option>
-                            <option value="facebook">Facebook</option>
-                            <option value="instagram">Instagram</option>
-                            <option value="linkedIn">Linked In</option>
-                            <option value="website">Website</option>
-                            <option value="others">Others</option>
-                        </select>
-                        <input type="text" id="infoDesc" name="infoDesc[]"> -->
-
-                </div>
-            </div>
-            <input type="Submit" value="Update" name="Update">
         </form>
     </body>
 </html>
