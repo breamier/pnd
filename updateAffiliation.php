@@ -21,20 +21,11 @@ if(isset($_POST['Update'])){
                     SET Name='$affName', Type='$affType', City='$city', Province='$province',Country='$country'
                     WHERE AffiliationID =  $aff_id";
 
-    if($conn->query($updateAff) === TRUE){
-  
-    } else {
-        echo "Error";
-    }
+    $conn->query($updateAff);
     $sql = "DELETE FROM affiliation_contactinfo WHERE AffiliationID = $id";
-    if($conn->query($sql) === TRUE){
- 
-    }
-
+    $conn->query($sql);
     $sql = "DELETE FROM contactinformation WHERE AffiliationID = $id";
-    if($conn->query($sql) === TRUE){
-
-    }
+    $conn->query($sql);
 
     for($i = 0; $i < count($infoTypes); $i++){
         $sql_contactInfo = "INSERT INTO `contactinformation`(`Type`, `Description`, `IndividualID`, `AffiliationID`)
@@ -81,17 +72,6 @@ if(isset($_POST['Update'])){
             <div id="affContactInfo">
                 <a onclick="add_affContactField()"><img src="images/add.png" class="add"></a>
                 <div>
-                        <!-- <select class="expand" name="infoType[]">
-                            <option value="" disabled="">--Select Type--</option>
-                            <option value="phoneNum">Phone Number</option>
-                            <option value="email">Email</option>
-                            <option value="facebook">Facebook</option>
-                            <option value="instagram">Instagram</option>
-                            <option value="linkedIn">Linked In</option>
-                            <option value="website">Website</option>
-                            <option value="others">Others</option>
-                        </select>
-                        <input type="text" id="infoDesc" name="infoDesc[]"> -->
                     <?php 
                 $sql = "SELECT * FROM contactinformation NATURAL JOIN affiliation_contactinfo WHERE AffiliationID = '$id'";
                 $contact = $conn->query($sql);
