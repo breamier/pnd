@@ -15,13 +15,11 @@ if(isset($_POST['Update'])){
     $infoDescs = $_POST["infoDesc"];
     $affiliations = $_POST["affiliation"];
     $roles = $_POST["role"];
-    $interests = $_POST['interest'];
 
     list($year, $month, $day) = explode('-', $birthdate);
-
-    $sql = "INSERT INTO `Individual`(`Fname`, `LName`, `Month`, `Day`, `Year`, `IndividualID`, `Gender`)
-            VALUES ('$fname', '$lname', '$month', '$day', '$year', '', '$gender')";
-
+    $sql = "UPDATE Individual
+            SET Fname='$fname', Lname='LName', Month = '$month', Day = '$day', Year = '$year', Gender='$gender'
+            WHERE IndividualID = '$id'";
     if($conn->query($sql) === TRUE){
         echo "Added Individual Info";
     } else {
@@ -29,8 +27,11 @@ if(isset($_POST['Update'])){
     }
 
     // retrieves last inserted contact id
-    $idv_id = $conn->insert_id;
-    
+    $idv_id = $id;
+    $sql = "DELETE FROM individual_contactinfo WHERE IndividualID = $id";
+    $conn->query($sql);
+    $sql = "DELETE FROM contactinformation WHERE IndividualID = $id";
+    $conn->query($sql);
     for($i = 0 ; $i < count($infoTypes); $i++){
         $sql_contactInfo = "INSERT INTO `contactinformation`(`Type`, `Description`, `IndividualID`, `AffiliationID`)
             VALUES ('$infoTypes[$i]', '$infoDescs[$i]', '$idv_id', NULL)";
@@ -47,6 +48,13 @@ if(isset($_POST['Update'])){
         }
     }   
 
+
+
+    $sql = "DELETE FROM Establishes WHERE IndividualID ='$id'";
+    $conn->query($sql);
+    $sql = "DELETE FROM PartOf WHERE ConnectionID IN (SELECT ConnectionID FROM Establishes WHERE IndividualID = '$id')";
+    $conn->query($sql);
+    
     for($j = 0; $j < count($affiliations); $j++){
         $sql_connection = "INSERT INTO `connection` (`ConnectionID`, `Role`)
             VALUES ('', '$roles[$j]')";
@@ -68,7 +76,14 @@ if(isset($_POST['Update'])){
             echo 'Added to partof relation';
         }
     }
-
+    $sql = "SELECT AssocIntID FROM individual_associnterest WHERE IndividualID = '$id'";
+    $assocIDs = $conn->query($sql);
+    $sql = "DELETE FROM individual_associnterest WHERE IndividualID ='$id'";
+    $conn->query($sql);
+    $sql = "DELETE FROM associnterest WHERE AssocIntID IN ($assocIDs)";
+    $conn->query($sql);
+    $sql = "DELETE FROM interest_associnterest WHERE AssocIntID IN ($assocIDs)";
+    $conn->query($sql);
     for($z = 0; $z < count($interests); $z++){
         $sql_assoc_id = "INSERT INTO `associnterest`(`AssocIntID`) VALUES('')";
         if($conn->query($sql_assoc_id)){
@@ -97,7 +112,8 @@ if(isset($_POST['Update'])){
 <?php include 'components/compHead.php'; ?>
     <body>
     <?php include 'components/compNav.php'?>
-    <form action="addContact.php" method="post" autocomplete="off" class="add">
+    <form action="<?php echo $_SERVER["PHP_SELF"]?>" method="post" autocomplete="off" class="add">
+            <input type="hidden" name="id" value="<?php echo $id?>">
             <h2 class="form-label">Add a Contact</h2>
             <label for="name">Name:</label><br>
             <input type="text" id="fname" name="fname" placeholder="First Name" value="<?php echo $result['FName']?>">
@@ -205,20 +221,33 @@ if(isset($_POST['Update'])){
             <label for="interest">Interests:</label>
             <div id="interestChoices">
                 <a onclick="add_interest()"><img src="images/add.png" class="add"></a>
-                <div>
-                    <select class="expand" name="interest[]">
-                        <option value="" disabled="">--Select Interests--</option>
-                        <!--Retrieve Interests-->
-                        <?php
-                            foreach ($interestOptions as $int_id => $int_name) {
-                                echo "<option value='$int_id'>$int_name</option>";
+                <?php
+                        $sql = "SELECT Interest.InterestID, Name FROM (Interest_AssocInterest NATURLAL JOIN  Interest NATURAL JOIN AssocInterest) WHERE AssocInterest.AssocIntID IN (SELECT AssocIntID FROM Individual_AssocInterest WHERE IndividualID = '$id')";
+                        $contact = $conn->query($sql);
+
+                while($row=$contact->fetch_assoc()){
+                    $intName = $row['Name'];
+                    $intID= $row['InterestID'];
+
+                    echo '<div>
+                            <select class="expand" name="affiliation[]">
+                            <option value="'.$intID.'">'.$intName.'</option>';
+                            foreach ($interestOptions as $aff_id => $aff_name) {
+                                if(!($aff_id==$affilID)){
+                                echo "<option value='$aff_id'>$aff_name</option>";
+                                }
                             }
-                        ?>
-                    </select>
-                </div>
+                    echo'</select>
+                    <button onclick="remove_field(this)" class="remove">Remove</button>
+                    </div>';
+                }
+            
+            
+                ?>
+
 
             </div>
-            <input type="submit">
+            <input type="submit" value="Update" name="Update">
         </form>
     </body>
 </html>
