@@ -39,7 +39,6 @@ function add_affContactField(){
 }
 
 function add_roleField(){
-    console.log("test");
     var div = document.createElement('div');
     var html = `<select class="expand" name="affiliation[]">
                         <option value="" disabled="">--Select Type--</option>`;
