@@ -4,6 +4,16 @@ include 'dbConnect.php';
     $id = $_REQUEST["id"];
     $sql  = "SELECT * FROM Individual WHERE IndividualID = '$id'";
     $result = $conn->query($sql)->fetch_assoc();
+    $year = $result['Year'];
+    $month = $result['Month'];
+    $day = $result['Day'];
+    $gender = $result['Gender'];
+
+    $date = strftime("%F", strtotime($year."-".$month."-".$day));
+    $g1 = $gender == 'male' ? 'checked' : '';
+    $g2 = $gender == 'female' ? 'checked' : '';
+    $g3 = $gender == 'pnts' ? 'checked' : '';
+    $g4 = $gender == 'others' ? 'checked' : '';
 ?>
 <?php
 if(isset($_POST['Update'])){
@@ -13,18 +23,16 @@ if(isset($_POST['Update'])){
     $gender = $_POST["gender"];
     $infoTypes = $_POST["infoType"]; 
     $infoDescs = $_POST["infoDesc"];
+    $affiliations = $_POST["affiliation"];
+    $roles = $_POST["role"];
 
     list($year, $month, $day) = explode('-', $birthdate);
     $sql = "UPDATE Individual
-            SET Fname='$fname', Lname='$LName', Month = '$month', Day = '$day', Year = '$year', Gender='$gender'
+            SET Fname='$fname', Lname='$lname', Month = '$month', Day = '$day', Year = '$year', Gender='$gender'
             WHERE IndividualID = '$id'";
-    if($conn->query($sql) === TRUE){
-        echo "Added Individual Info";
-    } else {
-        echo "Error";
-    }
+    $conn->query($sql);
 
-    // retrieves last inserted contact id
+    // retrieves contact id
     $idv_id = $id;
     $sql = "DELETE FROM individual_contactinfo WHERE IndividualID = $id";
     $conn->query($sql);
@@ -34,17 +42,15 @@ if(isset($_POST['Update'])){
         $sql_contactInfo = "INSERT INTO `contactinformation`(`Type`, `Description`, `IndividualID`, `AffiliationID`)
             VALUES ('$infoTypes[$i]', '$infoDescs[$i]', '$idv_id', NULL)";
 
-        if($conn->query($sql_contactInfo) === TRUE){
-            echo "Added to Contact Info Table Successfully";
-        }
+        $conn->query($sql_contactInfo);
 
         $sql_idvContact = "INSERT INTO `individual_contactinfo`(`IndividualID`, `Type`, `Description`)
             VALUES ('$idv_id', '$infoTypes[$i]', '$infoDescs[$i]')";
 
-        if($conn->query($sql_idvContact) === TRUE){
-            echo "Added to Individual Contact Table Successfully";
-        }
-    }   
+        $conn->query($sql_idvContact);
+    }
+
+    echo 'Contact Updated Successfully';
 
 }
     
@@ -61,13 +67,13 @@ if(isset($_POST['Update'])){
             <input type="text" id="lname" name="lname" placeholder="Last Name" value="<?php echo $result['LName']?>"><br>
 
             <label for="birthdate">Birthdate:</label><br>
-            <input class="expand" type="date" name="birthdate" ><br>
+            <input class="expand" type="date" name="birthdate" value="<?php echo $date?>"><br>
 
             <label for="gender">Gender:</label><br>
-            <input type="radio" name="gender" value="male" <?php if($result['Gender']=='male'){echo 'selected';}?>>Male<br>
-            <input type="radio" name="gender" value="female" <?php if($result['Gender']=='female'){echo 'selected';}?>>Female<br>
-            <input type="radio" name="gender" value="pnts" <?php if($result['Gender']=='pnts'){echo 'selected';}?>>Prefer Not to Say<br>
-            <input type="radio" name="gender" value="others" <?php if($result['Gender']=='others'){echo 'selected';}?>>Others<br>
+            <input type="radio" name="gender" value="male" <?php echo $g1?>>Male<br>
+            <input type="radio" name="gender" value="female" <?php echo $g2?>>Female<br>
+            <input type="radio" name="gender" value="pnts" <?php echo $g3?>>Prefer Not to Say<br>
+            <input type="radio" name="gender" value="others" <?php echo $g4?>>Others<br>
 
             <label for="contact">Contact Information:</label>
             <div id="contactInfo">
@@ -98,12 +104,52 @@ if(isset($_POST['Update'])){
                     </select>
                     <input type="text" id="infoDesc" name="infoDesc[]" value="'.$info.'">
                     <button onclick="remove_field(this)" class="remove">Remove</button></div>';
-
                 }
-            
-            
                 ?>
+            </div>
 
+            <label for="affiliation">Affiliations:</label>
+            <div id="affiliationChoices">
+                <a onclick="add_roleField()"><img src="images/add.png" class="add"></a>
+                <?php
+                    $sql = "SELECT a.AffiliationID, a.Name, c.Role FROM affiliation as a NATURAL JOIN partof as p NATURAL JOIN connection as c NATURAL JOIN establishes as e WHERE IndividualID = '$id'";
+                    $affiliation = $conn->query($sql);
+                    $idv_affiliations = array();
+
+                    if($affiliation-> num_rows > 0){
+                        while($aff_row = $affiliation->fetch_assoc()){
+                            $idv_affiliations[$aff_row['AffiliationID']] = $aff_row['Role'];
+                        }
+                    }
+                    
+                    $sql = "SELECT AffiliationID, Name FROM affiliation";
+                    $result = $conn->query($sql);
+                            
+                    $affOptions = array();
+                                
+                    if ($result->num_rows > 0) {
+                        while ($aff = $result->fetch_assoc()) {
+                            $affOptions[$aff['AffiliationID']] = $aff['Name'];
+                        }
+                    }
+
+                    
+                    foreach ($affOptions as $aff_id => $aff_name) {
+                        $selected = '';
+                        if(array_key_exists($aff_id, $idv_affiliations)){
+                            $selected = 'selected';
+                        }
+                        echo '<div>
+                            <select class="expand" name="affiliation[]">
+                                <option value="" disabled="">--Select Type--</option>';
+                        echo "<option value='$aff_id' $selected>$aff_name</option>";
+                        echo '</select>
+                            <input type="text" id="role" name="role[]" placeholder="Role" value = "'.$idv_affiliations[$aff_id].'">
+                            <button onclick="remove_field(this)" class="remove">Remove</button>
+                            </div>';
+                    }
+                ?>
+            </div>
             <input type="submit" value="Update" name="Update">
         </form>
     </body>

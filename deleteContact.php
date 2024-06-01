@@ -35,29 +35,29 @@ if($result->num_rows > 0){
         // needs to delete multiple rows
         $sql = "DELETE FROM partof WHERE ConnectionID = $connID";
         if($conn->query($sql) === TRUE){
-                echo "Deleted 6";
+                echo "Deleted 4";
             }
 
         $sql = "DELETE FROM establishes WHERE IndividualID = $id";
         if($conn->query($sql) === TRUE){
-                echo "Deleted 7";
+                echo "Deleted 5";
             }
 
         $sql = "DELETE FROM connection WHERE ConnectionID = $connID";
         if($conn->query($sql) === TRUE){
-                echo "Deleted 8";
+                echo "Deleted 7";
             }
     }
 }
 
 $sql = "DELETE FROM individual_contactinfo WHERE IndividualID = $id";
 if($conn->query($sql) === TRUE){
-        echo "Deleted 4";
+        echo "Deleted 7";
     }
 
 $sql = "DELETE FROM contactinformation WHERE IndividualID = $id";
 if($conn->query($sql) === TRUE){
-        echo "Deleted 5";
+        echo "Deleted 8";
     }
 
 $sql = "DELETE FROM individual WHERE IndividualID = $id";
