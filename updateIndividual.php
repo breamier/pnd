@@ -25,6 +25,7 @@ if(isset($_POST['Update'])){
     $infoDescs = $_POST["infoDesc"];
     $affiliations = $_POST["affiliation"];
     $roles = $_POST["role"];
+    $interests = $_POST['interest'];
 
     list($year, $month, $day) = explode('-', $birthdate);
     $sql = "UPDATE Individual

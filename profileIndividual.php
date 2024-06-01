@@ -5,11 +5,29 @@ include 'dbConnect.php';
     $indivSQL = "SELECT * FROM Individual WHERE IndividualID = '$id'";
     $affilID = "SELECT AffiliationID FROM Partof WHERE ConnectionID IN (SELECT ConnectionID FROM Establishes WHERE IndividualID = '$id')";
     $affilSQL = "SELECT * FROM Affiliation WHERE AffiliationID IN ($affilID)";
-    $interestID = "SELECT InterestID FROM Individual_AssocInterest WHERE AssocIntID IN (SELECT ConnectionID FROM Establishes WHERE IndividualID = '$id')";
+    $interestID = "SELECT InterestID FROM Interest_AssocInterest WHERE AssocIntID IN (SELECT AssocIntID FROM individual_associnterest WHERE IndividualID = '$id')";
     $interestSQL = "SELECT * FROM Interest WHERE InterestID IN ($interestID)";
     $dataRow = $conn->query($indivSQL)->fetch_assoc();
     $affil = $conn->query($affilSQL);
     $interest = $conn->query($interestSQL);
+
+    switch($dataRow['Gender']){
+        case 'male':
+            $gender = 'Male';
+            break;
+        case 'female':
+            $gender = 'Female';
+            break;
+        case 'pnts':
+            $gender = 'Prefer Not to Say';
+            break;
+        case 'others':
+            $gender = 'Others';
+            break;
+        default:
+            $gender = 'Others';
+            break;
+    }
 ?>
 <html>
 <?php include 'components/compHead.php'; ?>
@@ -25,10 +43,10 @@ include 'dbConnect.php';
                 <p>Fullname: <?php echo $dataRow['FName']." ".$dataRow['LName'];?></p>
                 <p>Birthday: <?php
                                 $date =$dataRow['Year']."-".$dataRow['Month']."-".$dataRow['Day'];
-                                echo date('F d', strtotime($date))?>
+                                echo date('F d Y', strtotime($date))?>
                 </p>
                 <p>Age: <?php echo date('Y',time()-strtotime($date))-1970;?></p>
-                <p>Gender: <?php echo $dataRow['Gender'];?></p>
+                <p>Gender: <?php echo $gender;?></p>
             </div>
             <div class = "contactinfo">
                 <h1>Contact Information</h1>
