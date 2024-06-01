@@ -59,6 +59,7 @@ if(isset($_POST['Update'])){
 <?php include 'components/compHead.php'; ?>
     <body>
     <?php include 'components/compNav.php'?>
+    
     <form action="<?php echo $_SERVER["PHP_SELF"]?>" method="post" autocomplete="off" class="add">
             <input type="hidden" name="id" value="<?php echo $id?>">
             <h2 class="form-label">Update Contact</h2>
@@ -112,46 +113,89 @@ if(isset($_POST['Update'])){
             <div id="affiliationChoices">
                 <a onclick="add_roleField()"><img src="images/add.png" class="add"></a>
                 <?php
-                    $sql = "SELECT a.AffiliationID, a.Name, c.Role FROM affiliation as a NATURAL JOIN partof as p NATURAL JOIN connection as c NATURAL JOIN establishes as e WHERE IndividualID = '$id'";
-                    $affiliation = $conn->query($sql);
-                    $idv_affiliations = array();
+                    $sql_idv_aff = "SELECT a.AffiliationID, a.Name, c.Role FROM affiliation as a NATURAL JOIN partof as p NATURAL JOIN connection as c NATURAL JOIN establishes as e WHERE IndividualID = '$id'";
+                    $affiliation = $conn->query($sql_idv_aff);
 
-                    if($affiliation-> num_rows > 0){
-                        while($aff_row = $affiliation->fetch_assoc()){
-                            $idv_affiliations[$aff_row['AffiliationID']] = $aff_row['Role'];
-                        }
-                    }
-                    
                     $sql = "SELECT AffiliationID, Name FROM affiliation";
                     $result = $conn->query($sql);
                             
                     $affOptions = array();
                                 
                     if ($result->num_rows > 0) {
-                        while ($aff = $result->fetch_assoc()) {
-                            $affOptions[$aff['AffiliationID']] = $aff['Name'];
+                        while ($row = $result->fetch_assoc()) {
+                            $affOptions[$row['AffiliationID']] = $row['Name'];
                         }
                     }
 
-                    
-                    foreach ($affOptions as $aff_id => $aff_name) {
-                        $selected = '';
-                        if(array_key_exists($aff_id, $idv_affiliations)){
-                            $selected = 'selected';
-                        }
-                        echo '<div>
-                            <select class="expand" name="affiliation[]">
+                    if($affiliation-> num_rows > 0){
+                        while($aff_row = $affiliation->fetch_assoc()){
+                            $idv_aff_id = $aff_row['AffiliationID'];
+                            $idv_aff_role = $aff_row['Role'];
+                            echo '<div>';
+                            echo '<select class="expand" name="affiliation[]">
                                 <option value="" disabled="">--Select Type--</option>';
-                        echo "<option value='$aff_id' $selected>$aff_name</option>";
-                        echo '</select>
-                            <input type="text" id="role" name="role[]" placeholder="Role" value = "'.$idv_affiliations[$aff_id].'">
-                            <button onclick="remove_field(this)" class="remove">Remove</button>
-                            </div>';
+                            foreach ($affOptions as $aff_id => $aff_name) {
+                                if($idv_aff_id == $aff_id){
+                                    echo "<option value='$aff_id' selected>$aff_name</option>";
+                                } else {
+                                    echo "<option value='$aff_id'>$aff_name</option>";
+                                }
+                            }
+                            echo '</select>
+                                    <input type="text" id="role" name="role[]" placeholder="Role" value="'.$idv_aff_role.'">
+                                    <button onclick="remove_field(this)" class="remove">Remove</button></div>';
+                        }
+                    }
+                ?>
+            </div>
+
+            <label for="interest">Interests:</label>
+            <div id="interestChoices">
+                <a onclick="add_interest()"><img src="images/add.png" class="add"></a>
+                <?php
+                    $sql_interest = "SELECT i.InterestID, i.Name FROM interest AS i NATURAL JOIN interest_associnterest as iai NATURAL JOIN individual_associnterest AS ia WHERE IndividualID = '$id'";
+                    $interest = $conn->query($sql_interest);
+
+                    $query = "SELECT InterestID, Name FROM interest";
+                    $result1 = $conn->query($query);
+
+                    $interestOptions = array();
+
+                    if ($result1->num_rows > 0) {
+                        while ($row1 = $result1->fetch_assoc()) {
+                            $interestOptions[$row1['InterestID']] = $row1['Name'];
+                        }
+                    }
+                    
+                    if($interest-> num_rows > 0){
+                        while($int_row = $interest->fetch_assoc()){
+                            $interest_id = $int_row['InterestID'];
+                            $interest_name = $int_row['Name'];
+                            echo '<div>';
+                            echo '<select class="expand" name="interest[]">';
+                            echo '<option value="" disabled="">--Select Interests--</option>';
+                            foreach ($interestOptions as $int_id => $int_name) {
+                                if($int_id == $interest_id){
+                                    echo "<option value='$int_id' selected>$int_name</option>";
+                                } else {
+                                    echo "<option value='$int_id'>$int_name</option>";
+                                }
+                                
+                            }
+                            echo '</select>';
+                            echo '<button onclick="remove_field(this)" class="remove">Remove</button>';
+                            echo '</div>';
+                        }
                     }
                 ?>
             </div>
             <input type="submit" value="Update" name="Update">
         </form>
     </body>
+
+    <script>
+            var affOptions = <?php echo json_encode($affOptions); ?>;
+            var interestOptions = <?php echo json_encode($interestOptions); ?>;
+    </script>
 </html>
 
