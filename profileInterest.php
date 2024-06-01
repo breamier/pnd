@@ -3,7 +3,7 @@
 include 'dbConnect.php';
     $id = $_REQUEST["id"];
     $interestSQL = "SELECT * FROM Interest WHERE InterestID = '$id'";
-    $indivSQL = "SELECT * FROM Individual WHERE IndividualID IN (SELECT IndividualID FROM (Individual  NATURAL JOIN AssocInterest NATURAL JOIN Interest_AssocInterest))";
+    $indivSQL = "SELECT * FROM (Individual NATURAL JOIN Individual_AssocInterest NATURAL JOIN AssocInterest NATURAL JOIN Interest_AssocInterest) WHERE InterestID = '$id'";
     $dataRow = $conn->query($interestSQL)->fetch_assoc();
     $indiv = $conn->query($indivSQL);
 ?>

@@ -51,6 +51,94 @@ if(isset($_POST['Update'])){
         $conn->query($sql_idvContact);
     }
 
+    $sql_assocID = "SELECT AssocIntID FROM individual_associnterest WHERE IndividualID = $id";
+$result = $conn->query($sql_assocID);
+
+if($result->num_rows > 0){
+    while($row = $result->fetch_assoc()){
+        $assocID = $row['AssocIntID'];
+        $sql_interest_assoc = "DELETE FROM interest_associnterest WHERE AssocIntID = $assocID";
+        if($conn->query($sql_interest_assoc) === TRUE){
+                echo "Deleted 1";
+            }
+
+        $sql_ind_assoc= "DELETE FROM individual_associnterest WHERE AssocIntID = $assocID";
+        if($conn->query($sql_ind_assoc) === TRUE){
+                echo "Deleted 2";
+            }
+
+        $sql_assoc_int = "DELETE FROM associnterest WHERE AssocIntID = $assocID";
+        if($conn->query($sql_assoc_int) === TRUE){
+                echo "Deleted 3";
+            }
+    }
+}
+
+$sql_connID = "SELECT ConnectionID FROM establishes WHERE IndividualID = $id";
+$result1 = $conn->query($sql_connID);
+
+if($result1->num_rows > 0){
+    while($row1 = $result1->fetch_assoc()){
+        $connID = $row1['ConnectionID'];
+        $sql_part_of = "DELETE FROM partof WHERE ConnectionID = $connID";
+        if($conn->query($sql_part_of) === TRUE){
+                echo "Deleted 4";
+            }
+
+        $sql_establishes = "DELETE FROM establishes WHERE ConnectionID = $connID";
+        if($conn->query($sql_establishes) === TRUE){
+                echo "Deleted 5";
+            }
+
+        $sql_connection = "DELETE FROM connection WHERE ConnectionID = $connID";
+        if($conn->query($sql_connection) === TRUE){
+                echo "Deleted 6";
+            }
+    }
+}
+for($j = 0; $j < count($affiliations); $j++){
+    $sql_connection = "INSERT INTO `connection` (`ConnectionID`, `Role`)
+        VALUES ('', '$roles[$j]')";
+
+    if($conn->query($sql_connection) === TRUE){
+        echo 'Added Connection and Role';
+    }
+
+    $conn_id = $conn->insert_id;
+
+    $sql_establishes = "INSERT INTO `establishes`(`IndividualID`, `ConnectionID`)
+        VALUES ('$idv_id', '$conn_id')";
+    if($conn->query($sql_establishes) === TRUE){
+        echo 'Added to Establishes';
+    }
+    $sql_partof = "INSERT INTO `partof`(`AffiliationID`, `ConnectionID`)
+        VALUES ('$affiliations[$j]', '$conn_id')";
+    if($conn->query($sql_partof) === TRUE){
+        echo 'Added to partof relation';
+    }
+}
+
+for($z = 0; $z < count($interests); $z++){
+    $sql_assoc_id = "INSERT INTO `associnterest`(`AssocIntID`) VALUES('')";
+    if($conn->query($sql_assoc_id)){
+        echo "Inserted assoc_id";
+    }
+
+    $assoc_id = $conn->insert_id;
+
+    $sql_idv_assoc = "INSERT INTO `individual_associnterest`(`AssocIntID`, `IndividualID`)
+        VALUES('$assoc_id', '$idv_id')";
+
+    if($conn->query($sql_idv_assoc) === TRUE){
+        echo "Linked Indiv to Assoc";
+    }
+    $sql_assoc_int = "INSERT INTO `interest_associnterest`(`InterestID`, `AssocIntID`)
+        VALUES ('".$interests[$z]."', '$assoc_id')";
+    if($conn->query($sql_assoc_int) === TRUE){
+        echo "Added Interest and AssocID";
+    }   
+}
+
     echo 'Contact Updated Successfully';
 
 }

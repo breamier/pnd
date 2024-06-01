@@ -3,8 +3,7 @@
 include 'dbConnect.php';
     $id = $_REQUEST["id"];
     $affilSQL = "SELECT * FROM Affiliation WHERE AffiliationID = '$id'";
-    $table = "SELECT Role FROM (PartOf NATURAL JOIN Connection NATURAL JOIN Establishes) WHERE";
-    $indivSQL = "SELECT * FROM Individual WHERE IndividualID IN (SELECT IndividualID FROM (PartOf NATURAL JOIN Connection NATURAL JOIN Establishes))";
+    $indivSQL = "SELECT * FROM (Individual NATURAL JOIN Establishes NATURAL JOIN Connection NATURAL JOIN PartOf) WHERE AffiliationID = '$id'";
     $dataRow = $conn->query($affilSQL)->fetch_assoc();
     $indiv = $conn->query($indivSQL);
 
@@ -46,8 +45,8 @@ include 'dbConnect.php';
                 <?php
                     while($row=$indiv->fetch_assoc()){
                         $indivID = $row['IndividualID'];
-                        $sql = "SELECT Role FROM (PartOf NATURAL JOIN Connection NATURAL JOIN Establishes) WHERE IndividualID = $indivID";
-                        $role =$conn->query($sql)->fetch_assoc();
+                        $roleSql = "SELECT Role FROM (PartOf NATURAL JOIN Connection NATURAL JOIN Establishes) WHERE IndividualID = $indivID";
+                        $role = $conn->query($roleSql)->fetch_assoc();
 
                         echo    "<a href='profileIndividual.php?id=".$indivID."'><div class='result profile'>".
                                 "<p>".$row['FName']." ".$row['LName']." - ".$role['Role']."</p>".
