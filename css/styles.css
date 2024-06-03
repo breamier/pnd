@@ -292,20 +292,18 @@ select{
     width: 100vw;
     display:flex;
     flex-direction: column;
+    overflow: scroll;
 }
 
 #interestDisplay{
     width:100vw;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
 }
 .tag{
-    display: inline;
     border-radius: 25%/50%;
     background-color: var(--header);
-    padding: 0.5em;
+    padding: 0.1em;
     /* color: var(--white); */
     color: #111;
 

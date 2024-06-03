@@ -19,7 +19,13 @@
         <?php
              include 'dbConnect.php';
             $req = '';
-            if(isset($_REQUEST['button'])){  $req = $_REQUEST['button'];}
+            if(isset($_REQUEST['button'])){  $req = $_REQUEST['button'];}else{
+                if(isset($_REQUEST['id'])){
+                    $id = $_REQUEST['id'];
+                    echo '<script>alert("'.$id.'")</script>';
+                }
+                
+            }
 
             switch($req){
                 case 'Search':
@@ -45,7 +51,7 @@
                                 $link = 'profileAffiliation.php';
                                 break;
                             
-                    
+                
                         }
                     
                     
@@ -53,7 +59,9 @@
                 $query = "SELECT * FROM $table WHERE $attrib LIKE '%$name%' LIMIT 5 "; 
                 // $sql = "SELECT * FROM Individual WHERE FName LIKE '%$name%'";
                 $result = $conn->query($query);
-
+                if($result->num_rows == 0){
+                    echo "<p style='text-align:center;'>NO RESULTS</p>";
+                }
                 while($row = $result->fetch_assoc()){                
                     // echo    "<div class='result'>".
                     //         "<a href='profileIndividual.php?id=".$row[$id]."><p>".$row[$attrib]." ".$contact["LName"]."</p></a>".
@@ -68,6 +76,9 @@
 
                 }
                 break;
+                default:
+                    echo "<p style='text-align:center'>Search For A Contact / Affiliation / Interest</p>";
+                    break;
 
             }
 

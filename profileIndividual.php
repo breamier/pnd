@@ -65,7 +65,7 @@ include 'dbConnect.php';
                 ?>
             </div>
         </section>
-        <section class="section center">
+        <section class="section heading">
             <div class="heading">
                 <h1>Affiliations</h1>
             </div>
@@ -81,22 +81,20 @@ include 'dbConnect.php';
             </div>
 
         </section>
-        </section>
-        <section class="section right">
+        <section class="section">
             <div class="heading">
                 <h1>Interests</h1>
             </div>
-            <div class="body"  id="interestDisplay">
+            <div class="body" id="contactDisplay">
                 <?php
                     while($row=$interest->fetch_assoc()){
                         echo    "<a href=profileInterest.php?id=".$row['InterestID'].">".
-                                "<span class='tag'>".$row['Name']."</span>".
-                                "</a></div>";
+                                "<p class='tag'>".$row['Name']."</p>".
+                                "</a>";
                     }
                 ?>
             </div>
-        </section>
-        <section class='actions'>
+            <section class='actions'>
             <form action='deleteContact.php' method='GET'>
                 <input type="submit" name="delete" value="Delete">
                 <input type='hidden' value='<?php echo $id?>' name='id'>
@@ -106,6 +104,8 @@ include 'dbConnect.php';
                 <input type='hidden' value='<?php echo $id?>' name='id'>
             </form>
         </section>
+        </section>
+
 
         </div>
     </body>

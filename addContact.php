@@ -84,6 +84,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             echo "Added Interest and AssocID";
         }   
     }
+    header("Location: profileIndividual.php?id=$idv_id");
 
 }
 ?>

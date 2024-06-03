@@ -26,14 +26,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             VALUES ('$infoTypes[$i]', '$infoDescs[$i]', NULL, '$aff_id')";
 
         if($conn->query($sql_contactInfo) === TRUE){
-            echo "Added to Contact Info Table Successfully";
         }
 
         $sql_affContact = "INSERT INTO `affiliation_contactinfo`(`AffiliationID`, `Type`, `Description`)
             VALUES ('$aff_id', '$infoTypes[$i]', '$infoDescs[$i]')";
 
         if($conn->query($sql_affContact) === TRUE){
-            echo "Added to Affiliation Contact Table Successfully";
         }
     }
 }
